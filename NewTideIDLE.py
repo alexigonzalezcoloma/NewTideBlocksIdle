@@ -1,9 +1,12 @@
 import kivy
 kivy.require('1.10.1')
 from kivy.app import App
+from kivy.graphics import Color
 from kivy.uix.widget import Widget
+from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+
 from kivy.app import App
 
 class Boton(App):
@@ -13,6 +16,8 @@ class Boton(App):
         global btn
         wdg = Widget()
         lbl = Label()
+        
+        img=Image()
 
         btnfile = Button()
         btnfile.text = "Archivo"
@@ -34,11 +39,15 @@ class Boton(App):
         btnsend.pos = (620,560)
         btnsend.size = (100, 30)
         
-        
+        wdg.add_widget(img)
+        img.source="img/fondo.jpg"
+        img.size=(800,800)
         wdg.add_widget(btnfile)
         wdg.add_widget(btnconex)
         wdg.add_widget(btncomp)
         wdg.add_widget(btnsend)
+
+        
 
         '''
         btnmod= Button()
