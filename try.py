@@ -6,12 +6,69 @@ from kivy.uix.widget import Widget
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.uix.gridlayout import GridLayout
-
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.filechooser import FileChooserListView
 from kivy.app import App
 
+import os
+
+def test(instance):
+    # create popup layout
+    content = BoxLayout(orientation='vertical', spacing=5)
+    popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
+    '''
+   # create the filechooser
+    textinput = FileChooserListView(path=(os.path.join(path, filename[0])), size_hint=(1, 1), dirselect=True)
+    textinput.bind(on_path=self._validate)
+    textinput = textinput
+ 
+    # construct the content
+    content.add_widget(textinput)
+    content.add_widget(SettingSpacer())
+    
+    # 2 buttons are created for accept or cancel the current value
+    btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
+    btn = Button(text='Ok')
+    btn.bind(on_release=btn._validate)
+    btnlayout.add_widget(btn)
+    btn = Button(text='Cancel')
+    btn.bind(on_release=btn._dismiss)
+    btnlayout.add_widget(btn)
+    content.add_widget(btnlayout)
+    '''
+ 
+    # all done, open the popup !
+    popup.open()
+
+def FileDialog(instance):
+    content = Button(text='Close')
+    popup = Popup(title='Choose a file', content=content, auto_dismiss=False, size_hint=(None, None),            
+                  size=(400, 400))
+    content.bind(on_press=popup.dismiss)
+    popup.open()
+
+def ConnectionDialog(instance):
+    content = Button(text='Close')
+    popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),            
+                  size=(400, 400))
+    content.bind(on_press=popup.dismiss)
+    popup.open()
+
+'''        
+def FileDialog(BoxLayout):
+
+    def open(self, path, filename):
+        with open(os.path.join(path, filename[0])) as f:
+            print(f.read())
+
+    def selected(self, filename):
+        print("selected: %s" % filename[0])
+'''
+
 class IDLE(App):
-    def build(self):
+    def build(self): 
         mainlo = GridLayout(rows=2)
         
         optionslo = GridLayout(cols=5, row_force_default=True, row_default_height=40, padding=[50,50,50,50])
@@ -22,9 +79,11 @@ class IDLE(App):
         
         btnfile = Button()
         btnfile.text = "Archivo"
+        btnfile.bind(on_press=FileDialog)
         
         btnconex = Button()
         btnconex.text = "Conectar"
+        btnconex.bind(on_press=ConnectionDialog)
 
         btncomp = Button()
         btncomp.text = "Compilar"
