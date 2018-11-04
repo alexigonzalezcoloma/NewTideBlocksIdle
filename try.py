@@ -10,64 +10,50 @@ from kivy.uix.popup import Popup
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
+
+from kivy.config import Config
+from kivy.core.window import Window
 from kivy.app import App
 
 import os
 
-def test(instance):
-    # create popup layout
+def validate(instance):
+    print("funciona")
+    
+def FileDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
-    '''
-   # create the filechooser
-    textinput = FileChooserListView(path=(os.path.join(path, filename[0])), size_hint=(1, 1), dirselect=True)
-    textinput.bind(on_path=self._validate)
-    textinput = textinput
- 
-    # construct the content
-    content.add_widget(textinput)
-    content.add_widget(SettingSpacer())
     
-    # 2 buttons are created for accept or cancel the current value
+    path = os.getcwd()
+    textinput = FileChooserListView(path=path, size_hint=(1, 1), dirselect=True)
+    #textinput.bind(on_path=validate)
+    #textinput = textinput
+
+    content.add_widget(textinput)
+
     btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
     btn = Button(text='Ok')
-    btn.bind(on_release=btn._validate)
+    btn.bind(on_release=validate)
     btnlayout.add_widget(btn)
     btn = Button(text='Cancel')
-    btn.bind(on_release=btn._dismiss)
+    btn.bind(on_release=popup.dismiss)
     btnlayout.add_widget(btn)
     content.add_widget(btnlayout)
-    '''
- 
-    # all done, open the popup !
-    popup.open()
-
-def FileDialog(instance):
-    content = Button(text='Close')
-    popup = Popup(title='Choose a file', content=content, auto_dismiss=False, size_hint=(None, None),            
-                  size=(400, 400))
-    content.bind(on_press=popup.dismiss)
     popup.open()
 
 def ConnectionDialog(instance):
-    content = Button(text='Close')
+    content = BoxLayout(orientation='vertical', spacing=5)
+    btnclose = Button(text='Close')
+    content.add_widget(btnclose)
     popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),            
                   size=(400, 400))
-    content.bind(on_press=popup.dismiss)
+    btnclose.bind(on_press=popup.dismiss)
     popup.open()
 
-'''        
-def FileDialog(BoxLayout):
-
-    def open(self, path, filename):
-        with open(os.path.join(path, filename[0])) as f:
-            print(f.read())
-
-    def selected(self, filename):
-        print("selected: %s" % filename[0])
-'''
-
 class IDLE(App):
+    Window.clearcolor = (1, 1, 1, 1)
+    Config.set('graphics', 'minimum_width', '720')
+    Config.set('graphics', 'minimum_height', '640')
     def build(self): 
         mainlo = GridLayout(rows=2)
         
@@ -75,7 +61,7 @@ class IDLE(App):
 
         icon = Button()
         icon.text = "NewTideIDLE"
-        icon.background_color = [0.2, 0.2, 0.23, 1]
+        icon.background_color = [0, 0, 0, 1]
         
         btnfile = Button()
         btnfile.text = "Archivo"
@@ -114,11 +100,11 @@ class IDLE(App):
         btnboperators.text = "Operadores"
 
         blocksopslo.add_widget(btnbmaker);blocksopslo.add_widget(btnbcontrol);blocksopslo.add_widget(btnboperators);
-        area = Image(); area.source="fondo.jpg"; area.size=(300,500)
-        blocksarealo.add_widget(area)
+        #area = BoxLayout(height='50dp')
+        #blocksarealo.add_widget(area)
 
-        area2 = Image(); area2.source="fondo.jpg"; area2.size=(300,500)
-        codearealo.add_widget(area2)
+        #area2 = BoxLayout(height='50dp')
+        #codearealo.add_widget(area2)
         
         blockslo.add_widget(blocksopslo)
         blockslo.add_widget(blocksarealo)

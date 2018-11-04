@@ -31,4 +31,4 @@ class MyApp(App):
         return MyWidget()
 
 if __name__ == '__main__':
-    MyApp().run()
+MyApp().run()
