@@ -15,7 +15,7 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 
-import os
+import os, serial
 
 def validate(instance):
     print("funciona")
@@ -44,6 +44,7 @@ def FileDialog(instance):
 
 # Abre popup para selección de puerto serial
 def ConnectionDialog(instance):
+    ports = list(serial.tools.list_ports.comports())
     content = BoxLayout(orientation='vertical', spacing=5)
     btnclose = Button(text='Close')
     content.add_widget(btnclose)
@@ -60,7 +61,7 @@ class IDLE(App):
     def build(self): 
         mainlo = GridLayout(rows=2, cols=1)
         
-        optionslo = GridLayout(cols=5, row_force_default=True, row_default_height=40, padding=[50,50,50,50])
+        optionslo = GridLayout(cols=5, size_hint=(0.1,0.2), row_force_default=True, row_default_height=40, padding=[50,50,50,50])
 
         icon = Button()
         icon.text = "NewTideIDLE"
