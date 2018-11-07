@@ -19,7 +19,8 @@ import os
 
 def validate(instance):
     print("funciona")
-    
+
+# Abre popup con directorio de archivos
 def FileDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
@@ -41,6 +42,7 @@ def FileDialog(instance):
     content.add_widget(btnlayout)
     popup.open()
 
+# Abre popup para selección de puerto serial
 def ConnectionDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     btnclose = Button(text='Close')
@@ -50,6 +52,7 @@ def ConnectionDialog(instance):
     btnclose.bind(on_press=popup.dismiss)
     popup.open()
 
+# Define la clase de la aplicacion
 class IDLE(App):
     Window.clearcolor = (1, 1, 1, 1)
     Config.set('graphics', 'minimum_width', '720')
