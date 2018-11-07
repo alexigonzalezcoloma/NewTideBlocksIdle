@@ -55,7 +55,7 @@ class IDLE(App):
     Config.set('graphics', 'minimum_width', '720')
     Config.set('graphics', 'minimum_height', '640')
     def build(self): 
-        mainlo = GridLayout(rows=2)
+        mainlo = GridLayout(rows=2, cols=1)
         
         optionslo = GridLayout(cols=5, row_force_default=True, row_default_height=40, padding=[50,50,50,50])
 
@@ -73,6 +73,7 @@ class IDLE(App):
 
         btncomp = Button()
         btncomp.text = "Compilar"
+        btncomp.background_color = [0, 0, 0, 1]
 
         btnsend = Button()
         btnsend.text = "Enviar"
@@ -84,12 +85,19 @@ class IDLE(App):
         optionslo.add_widget(btnsend)
 
         parealo = GridLayout(cols=2, padding=[10,10])
-        
         blockslo = GridLayout(rows=2)
-        blocksopslo = GridLayout(cols=3)
-        blocksarealo = GridLayout(cols=1)
+        blocksopslo = GridLayout(cols=3 ,size_hint=(0.1,0.1))
+        blocksarealo = GridLayout(cols=1,rows=1)
         codearealo = GridLayout(cols=1)
 
+       
+       
+        btnq4=Button()
+        btnq5=Button()
+        
+        blocksarealo.add_widget(btnq4)
+        codearealo.add_widget(btnq5)
+        
         btnbmaker = Button()
         btnbmaker.text = "Maker"
         
@@ -110,6 +118,8 @@ class IDLE(App):
         blockslo.add_widget(blocksarealo)
         
         parealo.add_widget(blockslo);parealo.add_widget(codearealo)
+
+        
 
         mainlo.add_widget(optionslo)
         mainlo.add_widget(parealo)
