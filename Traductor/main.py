@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, 'Modulo'); import Modulo
+import sys; sys.path.insert(0, 'Modulo'); import Modulo; import Idle
 
 
 if __name__ == '__main__':
@@ -12,5 +12,6 @@ if __name__ == '__main__':
     nodo.add_outs(Modulo.Else())
     nodo.outs.ant = nodo; nodo = nodo.outs
     nodo.add_ins(Modulo.Led_Off("13"))
+    
 
     print (inicio.write(0,""))

@@ -1,12 +1,23 @@
 import serial
+from bloques import Bloque
 
-try:
-	conn = serial.Serial("COM1", 9600)
-except Exception as e:
-	raise
-else:
-	conn = serial.Serial("COM2", 9600)
-else:
-	conn = serial.Serial("COM4", 9600)
-finally:
-	conn = serial.Serial("COM5", 9600)
+class connect(Bloque):
+	def __init__(self, arg):
+		Bloque.__init__(self)
+		self.name = "connect"
+		self.ins = None		
+
+		def conn():
+			try:
+				conn = serial.Serial("COM4", 9600)
+				print("Conectado a Tide Makers Mini")
+			except Exception as e:
+				raise("Tarjeta no conectada ya que no hay un puerto disponible")
+
+		def dis():
+			try:
+				conn.close()
+				print("Desconectado")
+			except Exception as e:
+				raise("Error al desconectar")
+

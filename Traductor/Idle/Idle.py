@@ -127,6 +127,8 @@ class IDLE(App):
         mainlo.add_widget(optionslo)
         mainlo.add_widget(parealo)
         return mainlo
+ 
+
     
 if __name__=="__main__": IDLE().run()
 
