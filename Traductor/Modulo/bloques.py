@@ -6,3 +6,11 @@ class Bloque():
 
     def write(self):
         raise Exception("No funciona :v")
+
+    def add_ins(self, nodo):
+        self.ins = nodo
+
+    def add_outs(self, nodo):
+        self.outs = nodo
+        self.outs.ant = self
+        

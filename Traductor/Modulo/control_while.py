@@ -1,16 +1,16 @@
 from bloques import Bloque
 
-class If(Bloque):
+class While(Bloque):
 
     def __init__(self, cond):
         Bloque.__init__(self)
-        self.name = "if"
+        self.name = "while"
         self.cond = cond
         self.ins = None
 
     def write(self, tabs, code):
         code += "    " * tabs
-        code += "if (%s){\n" % (self.cond)
+        code += "while (%s){\n" % (self.cond)
         if self.ins:
             code = self.ins.write(tabs+1, code)
         code += "    " * tabs
