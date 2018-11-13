@@ -1,5 +1,6 @@
 import sys; sys.path.insert(0, 'Modulo'); import Modulo
 
+
 if __name__ == '__main__':
     inicio = Modulo.While("True"); nodo = inicio
     nodo.add_ins(Modulo.If('"condición 2"'))
