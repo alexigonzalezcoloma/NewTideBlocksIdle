@@ -15,10 +15,23 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 
+import sys; sys.path.insert(0, 'Traductor/Modulo'); import Modulo; import Idle
+from compiler import Compiler
+
 import os, serial
 
 def validate(instance):
     print("funciona")
+
+def Compilation(instance):
+    dp = Compiler.dump_prefs()
+    cp = Compiler.compilate()
+    return dp, cp
+
+def prueba(instance):
+    nfh = open("Compilador/libraries/temp/temp.ino", "w")
+    x = Modulo.Led_On("13")
+    nfh.write(x.write(0, ""))
 
 # Abre popup con directorio de archivos
 def FileDialog(instance):
@@ -77,10 +90,11 @@ class IDLE(App):
 
         btncomp = Button()
         btncomp.text = "Compilar"
-        btncomp.background_color = [0, 0, 0, 1]
+        btncomp.bind(on_press=Compilation)
 
         btnsend = Button()
         btnsend.text = "Enviar"
+        btnsend.bind(on_press=Compiler.send("COM3"))
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
@@ -94,12 +108,12 @@ class IDLE(App):
         blocksarealo = GridLayout(cols=1,rows=1)
         codearealo = GridLayout(cols=1)
 
-       
-       
-        btnq4=Button()
+
+        btnblock = Button(text="LED_On")
+        btnblock.bind(on_press=prueba)
         btnq5=Button()
         
-        blocksarealo.add_widget(btnq4)
+        blocksarealo.add_widget(btnblock)
         codearealo.add_widget(btnq5)
         
         btnbmaker = Button()

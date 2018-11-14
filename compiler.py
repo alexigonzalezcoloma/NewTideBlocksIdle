@@ -21,7 +21,7 @@ class Compiler():
         self.arduino_builder = os.path.abspath(self.arduino_builder)
         self.hardware = self.path + "/hardware"
         self.hardware = os.path.abspath(self.hardware)
-        self.tools_builder = self.path + "/tools-builder)
+        self.tools_builder = self.path + "/tools-builder)"
         self.tools_builder = os.path.abspath(self.tools_builder)
         self.tools_avr = self.path + "/hardware/tools/avr"
         self.tools_avr = os.path.abspath(self.tools_avr)
@@ -35,7 +35,7 @@ class Compiler():
     def dump_prefs(self):
         cmd = "%s -dump-prefs -logger=machine -hardware %s -tools %s -tools %s -built-in-libraries %s -libraries %s -fqbn=arduino:avr:uno -ide-version=10805 -build-path %s -warnings=all -build-cache %s -prefs=build.warn_data_percentage=75 -pref=runtime.tools.avr-gcc.path=%s -prefs=runtime.tools.aruinoOTA.path=%s -prefs=runtime.tools.avrdude.path=%s -verbose %s" % (self.arduino_builder, self.hardware, self.tools_builder, self.tools_avr, self.libraries, self.libraries, self.build_path, self.sketch, self.tools_avr, self.tools_avr, self.tools_avr, self.hex)
         return os.system(cmd)
-    def compile(self):
+    def compilate(self):
         cmd = "%s -compile -logger=machine -hardware %s -tools %s -tools %s -built-in-libraries %s -libraries %s -fqbn=arduino:avr:uno -ide-version=10805 -build-path %s -warnings=all -build-cache %s -prefs=build.warn_data_percentage=75 -pref=runtime.tools.avr-gcc.path=%s -prefs=runtime.tools.aruinoOTA.path=%s -prefs=runtime.tools.avrdude.path=%s -verbose %s" % (self.arduino_builder, self.hardware, self.tools_builder, self.tools_avr, self.libraries, self.libraries, self.build_path, self.sketch, self.tools_avr, self.tools_avr, self.tools_avr, self.hex)
         return os.system(cmd)
     def send(self, port):
