@@ -23,7 +23,7 @@ def validate(instance):
 def FileDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
-    
+
     path = os.getcwd()
     textinput = FileChooserListView(path=path, size_hint=(1, 1), dirselect=True)
     #textinput.bind(on_path=validate)
@@ -47,7 +47,7 @@ def ConnectionDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     btnclose = Button(text='Close')
     content.add_widget(btnclose)
-    popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),            
+    popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),
                   size=(400, 400))
     btnclose.bind(on_press=popup.dismiss)
     popup.open()
@@ -57,19 +57,19 @@ class IDLE(App):
     Window.clearcolor = (1, 1, 1, 1)
     Config.set('graphics', 'minimum_width', '720')
     Config.set('graphics', 'minimum_height', '640')
-    def build(self): 
+    def build(self):
         mainlo = GridLayout(rows=2, cols=1)
-        
+
         optionslo = GridLayout(cols=5, size_hint=(0.1,0.2), row_force_default=True, row_default_height=40, padding=[50,50,50,50])
 
         icon = Button()
         icon.text = "NewTideIDLE"
         icon.background_color = [0, 0, 0, 1]
-        
+
         btnfile = Button()
         btnfile.text = "Archivo"
         btnfile.bind(on_press=FileDialog)
-        
+
         btnconex = Button()
         btnconex.text = "Conectar"
         btnconex.bind(on_press=ConnectionDialog)
@@ -93,17 +93,17 @@ class IDLE(App):
         blocksarealo = GridLayout(cols=1,rows=1)
         codearealo = GridLayout(cols=1)
 
-       
-       
+
+
         btnq4=Button()
         btnq5=Button()
-        
+
         blocksarealo.add_widget(btnq4)
         codearealo.add_widget(btnq5)
-        
+
         btnbmaker = Button()
         btnbmaker.text = "Maker"
-        
+
         btnbcontrol = Button()
         btnbcontrol.text = "Control"
 
@@ -116,19 +116,19 @@ class IDLE(App):
 
         #area2 = BoxLayout(height='50dp')
         #codearealo.add_widget(area2)
-        
+
         blockslo.add_widget(blocksopslo)
         blockslo.add_widget(blocksarealo)
-        
+
         parealo.add_widget(blockslo);parealo.add_widget(codearealo)
 
-        
+
 
         mainlo.add_widget(optionslo)
         mainlo.add_widget(parealo)
         return mainlo
- 
 
-    
+
+
 if __name__=="__main__": IDLE().run()
 

@@ -1,3 +1,4 @@
+import sys; sys.path.insert(0, 'Modulo');
 from bloques import Bloque
 from control_if import If
 from control_else import Else

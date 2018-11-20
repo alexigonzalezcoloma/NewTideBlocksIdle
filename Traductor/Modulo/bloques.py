@@ -13,4 +13,3 @@ class Bloque():
     def add_outs(self, nodo):
         self.outs = nodo
         self.outs.ant = self
-        

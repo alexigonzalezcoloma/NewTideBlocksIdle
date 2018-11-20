@@ -14,4 +14,3 @@ class Led_On(Bloque):
         if self.outs:
             code = self.outs.write(tabs, code)
         return code
-        

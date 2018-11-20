@@ -1,6 +1,5 @@
 import os
-
-
+import sys; sys.path.insert(0, 'Traductor');
 class Compilador():
     def __init__(self, system):
         self.path = os.path.abspath(__file__)

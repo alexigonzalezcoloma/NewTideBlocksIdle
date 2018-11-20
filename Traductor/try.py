@@ -15,8 +15,9 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 
-import sys; sys.path.insert(0, 'Traductor/Modulo'); import Modulo; import Idle
-from compiler import Compiler
+import sys; sys.path.insert(0, 'Modulo'); import Modulo;
+import Idle
+sys.path.insert(0, 'Traductor');from Compilador import Compilador
 
 import os, serial
 
@@ -24,12 +25,12 @@ def validate(instance):
     print("funciona")
 
 def Compilation(instance):
-    dp = Compiler.dump_prefs()
-    cp = Compiler.compilate()
+    dp = Compilador.dump_prefs()
+    cp = Compilador.compilate()
     return dp, cp
 
 def prueba(instance):
-    nfh = open("Compilador/libraries/temp/temp.ino", "w")
+    nfh = open("Compilador/libraries/temp/temp.ino", "a")
     x = Modulo.Led_On("13")
     nfh.write(x.write(0, ""))
 
@@ -37,7 +38,7 @@ def prueba(instance):
 def FileDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
-    
+
     path = os.getcwd()
     textinput = FileChooserListView(path=path, size_hint=(1, 1), dirselect=True)
     #textinput.bind(on_path=validate)
@@ -61,7 +62,7 @@ def ConnectionDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
     btnclose = Button(text='Close')
     content.add_widget(btnclose)
-    popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),            
+    popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),
                   size=(400, 400))
     btnclose.bind(on_press=popup.dismiss)
     popup.open()
@@ -71,19 +72,19 @@ class IDLE(App):
     Window.clearcolor = (1, 1, 1, 1)
     Config.set('graphics', 'minimum_width', '720')
     Config.set('graphics', 'minimum_height', '640')
-    def build(self): 
+    def build(self):
         mainlo = GridLayout(rows=2, cols=1)
-        
+
         optionslo = GridLayout(cols=5, size_hint=(0.1,0.2), row_force_default=True, row_default_height=40, padding=[50,50,50,50])
 
         icon = Button()
         icon.text = "NewTideIDLE"
         icon.background_color = [0, 0, 0, 1]
-        
+
         btnfile = Button()
         btnfile.text = "Archivo"
         btnfile.bind(on_press=FileDialog)
-        
+
         btnconex = Button()
         btnconex.text = "Conectar"
         btnconex.bind(on_press=ConnectionDialog)
@@ -94,7 +95,7 @@ class IDLE(App):
 
         btnsend = Button()
         btnsend.text = "Enviar"
-        btnsend.bind(on_press=Compiler.send("COM3"))
+        btnsend.bind(on_press=Compilador.send(Compilador,"COM3"))
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
@@ -112,13 +113,13 @@ class IDLE(App):
         btnblock = Button(text="LED_On")
         btnblock.bind(on_press=prueba)
         btnq5=Button()
-        
+
         blocksarealo.add_widget(btnblock)
         codearealo.add_widget(btnq5)
-        
+
         btnbmaker = Button()
         btnbmaker.text = "Maker"
-        
+
         btnbcontrol = Button()
         btnbcontrol.text = "Control"
 
@@ -131,16 +132,16 @@ class IDLE(App):
 
         #area2 = BoxLayout(height='50dp')
         #codearealo.add_widget(area2)
-        
+
         blockslo.add_widget(blocksopslo)
         blockslo.add_widget(blocksarealo)
-        
+
         parealo.add_widget(blockslo);parealo.add_widget(codearealo)
 
-        
+
 
         mainlo.add_widget(optionslo)
         mainlo.add_widget(parealo)
         return mainlo
-    
+
 if __name__=="__main__": IDLE().run()
