@@ -40,3 +40,6 @@ class Compilador():
     def send(self, port):
         cmd = "%s -C%s -v -patmega328p -carduino -P%s -b115200 -D -Uflash:w:%s:i " % (self.avrdude, self.avrdude_conf, port, self.hex)
         return os.system(cmd)
+
+#x=Compilador(os.system)
+#x.send("COM3")

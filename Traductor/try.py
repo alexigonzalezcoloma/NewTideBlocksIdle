@@ -16,8 +16,8 @@ from kivy.core.window import Window
 from kivy.app import App
 
 import sys; sys.path.insert(0, 'Modulo'); import Modulo;
-import Idle
-sys.path.insert(0, 'Traductor');from Compilador import Compilador
+from Idle import Idle
+from Compilador import Compilador
 
 import os, serial
 
@@ -25,12 +25,12 @@ def validate(instance):
     print("funciona")
 
 def Compilation(instance):
-    dp = Compilador.dump_prefs()
-    cp = Compilador.compilate()
+    dp = Compilador("Windows").dump_prefs()
+    cp = Compilador("Windows").compilate()
     return dp, cp
 
 def prueba(instance):
-    nfh = open("Compilador/libraries/temp/temp.ino", "a")
+    nfh = open("Compilador/temp/temp.ino", "a")
     x = Modulo.Led_On("13")
     nfh.write(x.write(0, ""))
 
@@ -95,7 +95,10 @@ class IDLE(App):
 
         btnsend = Button()
         btnsend.text = "Enviar"
-        btnsend.bind(on_press=Compilador.send(Compilador,"COM3"))
+        press=Compilador("Windows")
+        #botao_ok.bind(on_press=lambda x:teste_('Ola'))
+        btnsend.bind(on_press=lambda x:press.send("COM3"))
+        #btnsend.bind(on_press=on_press.send("COM3"))
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
