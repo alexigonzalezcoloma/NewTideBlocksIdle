@@ -1,4 +1,5 @@
-import kivy, sys, os, serial
+import kivy, sys, os
+import serial.tools.list_ports
 kivy.require('1.10.1')
 from kivy.app import App
 from kivy.graphics import Color
@@ -23,15 +24,15 @@ def validate(instance):
     print("funciona")
 
 def Compilation(instance):
-    nfh = open("Compilador/temp/temp.ino", "a")
+    nfh = open("Compilador/Compilador/temp/temp.ino", "a")
     nfh.write("}")
-    dp = Compilador.dump_prefs()
-    cp = Compilador.compilate()
+    dp = Compilador.Compilador("Windows").dump_prefs()
+    cp = Compilador.Compilador("Windows").compilate()
     return dp, cp
 
 def prueba(instance):
     x = Modulo.Led_On("13")
-    nfh = open("Compilador/temp/temp.ino", "a")
+    nfh = open("Compilador/Compilador/temp/temp.ino", "a")
     nfh.write(x.write(1, ""))
 
 # Abre popup con directorio de archivos
@@ -58,7 +59,7 @@ def FileDialog(instance):
 
 # Abre popup para selección de puerto serial
 def ConnectionDialog(instance):
-    ports = list(serial.tools.list_ports.comports())
+    print(serial.tools.list_ports.comports())
     content = BoxLayout(orientation='vertical', spacing=5)
     btnclose = Button(text='Close')
     content.add_widget(btnclose)
