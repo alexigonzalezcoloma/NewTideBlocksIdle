@@ -6,7 +6,6 @@
         Rectangle:
             size: self.size
             pos: self.pos
-
     BoxLayout:
         spacing:20
         padding:15
@@ -38,7 +37,7 @@
             Button:
                 id:file
                 text:'Archivo'
-                on_press:FileDialog()
+                on_press:app.IDLE.FileDialog()
                 border: 20,20,20,20    
 
             Button:
@@ -83,7 +82,7 @@
                         pos: self.pos
 
                 BoxLayout:
-                    id:pestanias
+                    id:tabsmodules
                     size_hint: 1,0.06
 
                     canvas:
@@ -109,30 +108,53 @@
                     size_hint: 1,0.9
 
                     
-
                     canvas:
                         Color:
                             rgba: 1,1,1,1
                         Rectangle:
                             size: self.size
                             pos: self.pos
-                    Scatter:
-                        Button:
-                            text:'Encender Led'
-                            background_color:{1,0,0}
-                            border: 20,20,20,20
+                   
+                    Button:
+                        text:'Encender Led'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
                         
-                    Scatter:
-                        Button:
-                            text:'Apagar Led'
-                            background_color:{1,0,1}
-                            border: 20,20,20,20
-                    Scatter:
-                        Button:
-                            text:'Sensar Luz'
-                            background_color:{1,0,0}
-                            border: 20,20,20,20
+                    Button:
+                        text:'Apagar Led'
+                        background_color:{1,0,1}
+                        border: 20,20,20,20
                     
+                    Button:
+                        text:'Sensar Luz'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
+                    Button:
+                        text:'Encender Led'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
+                    Button:
+                        text:'Encender Led'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
+                    Button:
+                        text:'Encender Led'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
+                    Button:
+                        text:'Encender Led'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
+                        
+                    Button:
+                        text:'Apagar Led'
+                        background_color:{1,0,1}
+                        border: 20,20,20,20
+                    
+                    Button:
+                        text:'Sensar Luz'
+                        background_color:{1,0,0}
+                        border: 20,20,20,20
 
             BoxLayout:
                 orientation: "vertical"
@@ -147,16 +169,21 @@
                         pos: self.pos
 
                 BoxLayout:
-                    orientation:"vertical"
-                    id:pestaniasprogram
-                    size_hint: 1,0.06
+                    orientation:"horizontal"
+                    id:tabsprogram
+                    size_hint: 1,0.048
+
 
                     canvas:
                         Color:
-                            rgba: 1,1,1,.7
+                            rgba: 0,0,0,.7
                         Rectangle:
                             size: self.size
                             pos: self.pos
+                    Button:
+                        text:'     +'
+                    Button:
+                        text:'     +'
                     
                 
                 BoxLayout:
@@ -165,7 +192,7 @@
 
                     canvas:
                         Color:
-                            rgba: 1,1,1,.7
+                            rgba: 0,0,0,.7
                         Rectangle:
                             size: self.size
                             pos: self.pos
