@@ -41,6 +41,8 @@ def ConnectionDialog(instance):
 
 class IDLE(BoxLayout):
 	None
+
+	
 	
 class MainApp(App):
 	title = "NEWTIDEIDLE"
