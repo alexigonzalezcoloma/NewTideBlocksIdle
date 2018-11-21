@@ -17,34 +17,3 @@ void setup() {
 }
 
 void loop() {
-    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-    digitalWrite(13, HIGH);
-    digitalWrite(13, HIGH);
-}}}}}}}}}}}}}}}    digitalWrite(13, HIGH);
-}}}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-    digitalWrite(13, HIGH);
-    digitalWrite(13, HIGH);
-}}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}    digitalWrite(13, HIGH);
-}}    digitalWrite(13, HIGH);
-}

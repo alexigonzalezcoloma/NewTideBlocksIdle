@@ -1,6 +1,6 @@
 import kivy, sys, os
 import serial.tools.list_ports
-kivy.require('1.10.1')
+kivy.require('1.10.1')#xd
 from kivy.app import App
 from kivy.graphics import Color
 from kivy.uix.widget import Widget
@@ -96,7 +96,7 @@ class IDLE(App):
 
         btnsend = Button()
         btnsend.text = "Enviar"
-        #btnsend.bind(on_press=Compilador.send("COM3"))
+        btnsend.bind(on_press=lambda x:Compilador.Compilador("Windows").send("COM3"))
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
