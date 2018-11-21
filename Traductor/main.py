@@ -1,6 +1,6 @@
 import kivy, sys, os
 import serial.tools.list_ports
-kivy.require('1.10.1')
+kivy.require('1.10.1')#xd
 from kivy.app import App
 from kivy.graphics import Color
 from kivy.uix.widget import Widget
