@@ -96,7 +96,7 @@ class IDLE(App):
 
         btnsend = Button()
         btnsend.text = "Enviar"
-        #btnsend.bind(on_press=Compilador.send("COM3"))
+        btnsend.bind(on_press=lambda x:Compilador.Compilador("Windows").send("COM3"))
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
