@@ -17,12 +17,12 @@ class Compilador():
         self.sketch = os.path.abspath(self.sketch)
         self.hex = self.path + "/temp/build/temp.ino.hex"
         self.hex = os.path.abspath(self.hex)
-        self.path = self.path + "/Compilador/arduino-builder"
+        self.path = self.path + "/arduino-builder"
         self.arduino_builder = self.path
         self.arduino_builder = os.path.abspath(self.arduino_builder)
         self.hardware = self.path + "/hardware"
         self.hardware = os.path.abspath(self.hardware)
-        self.tools_builder = self.path + "/tools-builder)"
+        self.tools_builder = self.path + "/tools-builder"
         self.tools_builder = os.path.abspath(self.tools_builder)
         self.tools_avr = self.path + "/hardware/tools/avr"
         self.tools_avr = os.path.abspath(self.tools_avr)
