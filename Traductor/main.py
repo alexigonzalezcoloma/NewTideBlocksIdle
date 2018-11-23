@@ -1,4 +1,4 @@
-import kivy, sys, os
+import kivy, sys, os, shutil
 import serial.tools.list_ports
 kivy.require('1.10.1')#xd
 from kivy.app import App
@@ -35,6 +35,22 @@ def prueba(instance):
     nfh = open("Compilador/Compilador/temp/temp.ino", "a")
     nfh.write(x.write(1, ""))
 
+def replace(destiny):
+    path = os.path.abspath(__file__)
+    path = os.path.dirname(path)
+    origen = path + "/Compilador/Compilador/temp/temp_base.ino"
+    destino = path + destiny
+    if os.path.exists(origen):
+        with open(origen,"rb") as forigen:
+            with open(destino, "wb") as fdestino:
+                shutil.copyfileobj(forigen, fdestino)
+
+def send(instance):
+    sd = Compilador.Compilador("Windows").send("COM3")
+    replace("/Compilador/Compilador/temp/temp.ino")
+    replace("/Compilador/Compilador/temp/build/temp.ino.hex")
+    return sd
+
 # Abre popup con directorio de archivos
 def FileDialog(instance):
     content = BoxLayout(orientation='vertical', spacing=5)
@@ -59,7 +75,7 @@ def FileDialog(instance):
 
 # Abre popup para selección de puerto serial
 def ConnectionDialog(instance):
-    print(serial.tools.list_ports.comports())
+    print(list(serial.tools.list_ports.comports()))
     content = BoxLayout(orientation='vertical', spacing=5)
     btnclose = Button(text='Close')
     content.add_widget(btnclose)
@@ -96,7 +112,7 @@ class IDLE(App):
 
         btnsend = Button()
         btnsend.text = "Enviar"
-        btnsend.bind(on_press=lambda x:Compilador.Compilador("Windows").send("COM3"))
+        btnsend.bind(on_press=send)
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
@@ -120,6 +136,7 @@ class IDLE(App):
 
         btnbmaker = Button()
         btnbmaker.text = "Maker"
+        #btnbmaker.bind(on_press=replace)
 
         btnbcontrol = Button()
         btnbcontrol.text = "Control"
