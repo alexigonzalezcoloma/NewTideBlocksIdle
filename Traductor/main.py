@@ -1,5 +1,6 @@
 import kivy, sys, os, shutil
 import serial.tools.list_ports
+import binascii
 kivy.require('1.10.1')#xd
 from kivy.app import App
 from kivy.graphics import Color
@@ -26,14 +27,50 @@ def validate(instance):
 def Compilation(instance):
     nfh = open("Compilador/Compilador/temp/temp.ino", "a")
     nfh.write("}")
+    nfh.close()
+    FileBuild()
     dp = Compilador.Compilador("Windows").dump_prefs()
     cp = Compilador.Compilador("Windows").compilate()
+    if dp == 0:
+        print("funciona")
+    else:
+        print("se cae en dump prefs")
     return dp, cp
 
 def prueba(instance):
+    FileBase() # Copia base a temp.ino
     x = Modulo.Led_On("13")
     nfh = open("Compilador/Compilador/temp/temp.ino", "a")
     nfh.write(x.write(1, ""))
+    nfh.close()
+
+def FileBase():
+    nfh = open("Compilador/Compilador/temp/temp.ino", "w")
+    with open("Compilador/Compilador/temp/base.ino") as f:
+        content = f.readlines()
+    for line in content:
+        nfh.write(line)
+    f.close()
+    nfh.close()
+
+def FileBuild():
+    """
+    nfh = open("Compilador/Compilador/temp/build/temp.ino.hex", "wb")
+    with open("Compilador/Compilador/temp/temp.ino") as f:
+        content = f.readlines()
+    for line in content:
+        hline = line.encode('utf-8')
+        nfh.write(hline.hex())
+    f.close()
+    nfh.close()
+    ------------------------------------------------------------
+    with open("Compilador/Compilador/temp/temp.ino", 'rb') as f:
+        content = f.read()
+    nfh.write(binascii.hexlify(content))
+    f.close()
+    nfh.close()
+    """
+    
 
 def replace(destiny):
     path = os.path.abspath(__file__)
