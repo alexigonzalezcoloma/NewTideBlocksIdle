@@ -1,6 +1,6 @@
-# 1 "C:\\Users\\Mathias\\Documents\\GitHub\\NewTideBlocksIdle\\Traductor\\Compilador\\Compilador\\temp\\temp\\temp.ino"
-# 1 "C:\\Users\\Mathias\\Documents\\GitHub\\NewTideBlocksIdle\\Traductor\\Compilador\\Compilador\\temp\\temp\\temp.ino"
-# 2 "C:\\Users\\Mathias\\Documents\\GitHub\\NewTideBlocksIdle\\Traductor\\Compilador\\Compilador\\temp\\temp\\temp.ino" 2
+# 1 "C:\\Users\\Matias\\Documents\\GitHub\\NewTideBlocksIdle\\Traductor\\Compilador\\Compilador\\temp\\temp\\temp.ino"
+# 1 "C:\\Users\\Matias\\Documents\\GitHub\\NewTideBlocksIdle\\Traductor\\Compilador\\Compilador\\temp\\temp\\temp.ino"
+# 2 "C:\\Users\\Matias\\Documents\\GitHub\\NewTideBlocksIdle\\Traductor\\Compilador\\Compilador\\temp\\temp\\temp.ino" 2
 void setup() {
   Serial.begin(9600);
   pinMode(1, 0x1);
@@ -19,4 +19,6 @@ void setup() {
 }
 
 void loop() {
+
+    digitalWrite(13, 0x1);
 }

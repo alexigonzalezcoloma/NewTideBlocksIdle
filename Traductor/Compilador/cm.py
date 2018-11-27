@@ -22,7 +22,7 @@ class Compilador():
         self.path = self.path + "/arduino-builder"
         self.arduino_builder = self.path+"/arduino-builder.exe"
         self.arduino_builder = os.path.abspath(self.arduino_builder)
-        print (self.arduino_builder)
+        #print (self.arduino_builder)
         self.hardware = self.path + "/hardware"
         self.hardware = os.path.abspath(self.hardware)
         self.tools_builder = self.path + "/tools-builder"
@@ -48,7 +48,7 @@ class Compilador():
         cmd = "%s -C%s -v -patmega328p -carduino -P%s -b115200 -D -Uflash:w:%s:i " % (self.avrdude, self.avrdude_conf, port, self.hex)
         return os.system(cmd)
 
-x=Compilador("Windows")
-x.dump_prefs()
-x.compilate()
-x.send("COM3")
+#x=Compilador("Windows")
+#x.dump_prefs()
+#x.compilate()
+#x.send("COM3")

@@ -1,0 +1,2 @@
+C:\Users\Matias\Documents\GitHub\NewTideBlocksIdle\Traductor\Compilador\Compilador\temp\build\core\new.cpp.o: \
+ C:\Users\Matias\Documents\GitHub\NewTideBlocksIdle\Traductor\Compilador\Compilador\arduino-builder\hardware\arduino\avr\cores\arduino\new.cpp

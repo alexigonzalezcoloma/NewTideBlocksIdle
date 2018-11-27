@@ -1,7 +1,7 @@
 import kivy, sys, os, shutil
 import serial.tools.list_ports
 import binascii
-kivy.require('1.10.1')#xd
+kivy.require('1.10.1')
 from kivy.app import App
 from kivy.graphics import Color
 from kivy.uix.widget import Widget
@@ -25,68 +25,31 @@ def validate(instance):
     print("funciona")
 
 def Compilation(instance):
-    nfh = open("Compilador/Compilador/temp/temp.ino", "a")
+    nfh = open("Compilador/Compilador/temp/temp/temp.ino", "a")
     nfh.write("}")
     nfh.close()
-    FileBuild()
     dp = Compilador.Compilador("Windows").dump_prefs()
-    cp = Compilador.Compilador("Windows").compilate()
     if dp == 0:
-        print("funciona")
-    else:
-        print("se cae en dump prefs")
-    return dp, cp
+        cp = Compilador.Compilador("Windows").compilate()
+        if cp == 0:
+            return 0
+    return dp
 
 def prueba(instance):
     FileBase() # Copia base a temp.ino
     x = Modulo.Led_On("13")
-    nfh = open("Compilador/Compilador/temp/temp.ino", "a")
+    nfh = open("Compilador/Compilador/temp/temp/temp.ino", "a")
     nfh.write(x.write(1, ""))
     nfh.close()
 
 def FileBase():
-    nfh = open("Compilador/Compilador/temp/temp.ino", "w")
-    with open("Compilador/Compilador/temp/base.ino") as f:
+    nfh = open("Compilador/Compilador/temp/temp/temp.ino", "w")
+    with open("Compilador/Compilador/temp/base/base.ino") as f:
         content = f.readlines()
     for line in content:
         nfh.write(line)
     f.close()
     nfh.close()
-
-def FileBuild():
-    """
-    nfh = open("Compilador/Compilador/temp/build/temp.ino.hex", "wb")
-    with open("Compilador/Compilador/temp/temp.ino") as f:
-        content = f.readlines()
-    for line in content:
-        hline = line.encode('utf-8')
-        nfh.write(hline.hex())
-    f.close()
-    nfh.close()
-    ------------------------------------------------------------
-    with open("Compilador/Compilador/temp/temp.ino", 'rb') as f:
-        content = f.read()
-    nfh.write(binascii.hexlify(content))
-    f.close()
-    nfh.close()
-    """
-    
-
-def replace(destiny):
-    path = os.path.abspath(__file__)
-    path = os.path.dirname(path)
-    origen = path + "/Compilador/Compilador/temp/temp_base.ino"
-    destino = path + destiny
-    if os.path.exists(origen):
-        with open(origen,"rb") as forigen:
-            with open(destino, "wb") as fdestino:
-                shutil.copyfileobj(forigen, fdestino)
-
-def send(instance):
-    sd = Compilador.Compilador("Windows").send("COM3")
-    replace("/Compilador/Compilador/temp/temp.ino")
-    replace("/Compilador/Compilador/temp/build/temp.ino.hex")
-    return sd
 
 # Abre popup con directorio de archivos
 def FileDialog(instance):
@@ -149,7 +112,6 @@ class IDLE(App):
 
         btnsend = Button()
         btnsend.text = "Enviar"
-        btnsend.bind(on_press=send)
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
