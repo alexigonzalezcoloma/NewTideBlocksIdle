@@ -93,16 +93,23 @@
                             pos: self.pos
 
                     Button:
+                        id:btnmaker
                         text:'Maker'
                         border: 20,20,20,20
+                        on_press:app.IDLE.modmakers()
                     Button:
+                        id:btnctrl
                         text:'Control'
                         border: 20,20,20,20
+                        on_press:app.IDLE.modcontrols()
                     Button:
+                        id:btnopr
                         text:'Operador'
                         border: 20,20,20,20
+                        on_press:app.IDLE.modopr()
                 
                 BoxLayout:
+
                     orientation:'vertical'
                     id:areamodules
                     size_hint: 1,0.9
@@ -115,46 +122,6 @@
                             size: self.size
                             pos: self.pos
                    
-                    Button:
-                        text:'Encender Led'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
-                        
-                    Button:
-                        text:'Apagar Led'
-                        background_color:{1,0,1}
-                        border: 20,20,20,20
-                    
-                    Button:
-                        text:'Sensar Luz'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
-                    Button:
-                        text:'Encender Led'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
-                    Button:
-                        text:'Encender Led'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
-                    Button:
-                        text:'Encender Led'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
-                    Button:
-                        text:'Encender Led'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
-                        
-                    Button:
-                        text:'Apagar Led'
-                        background_color:{1,0,1}
-                        border: 20,20,20,20
-                    
-                    Button:
-                        text:'Sensar Luz'
-                        background_color:{1,0,0}
-                        border: 20,20,20,20
 
             BoxLayout:
                 orientation: "vertical"
