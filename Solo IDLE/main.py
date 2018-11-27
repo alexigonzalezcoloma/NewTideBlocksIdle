@@ -57,6 +57,17 @@ class IDLE(BoxLayout):
 		#scatter = Scatter(do_rotation=False)
 		#scatter.add_widget(subtraction)
 		print('hola')
+
+	def Compilation(instance):
+	    dp = Compilador("Windows").dump_prefs()
+	    cp = Compilador("Windows").compilate()
+	    return dp, cp
+
+	def fxled_on(instance):
+	    #nfh = open("Compilador/temp/temp.ino", "a")
+	    x = Modulo.Led_On("13")
+	    x.write(0, "")
+	    #nfh.write(x.write(0, ""))
 	
 	
 	def modmakers(self):
@@ -64,7 +75,7 @@ class IDLE(BoxLayout):
 		areamodules.clear_widgets()
 
 		led_on=Button(text='Encender Led')
-		led_on.Color=(1, 0, 0)
+		led_on.bind(fxled_on())
 		led_off=Button(text='Apagar Led')
 		poweron_pin=Button(text='Encender Pin')
 		poweroff_pin=Button(text='Apagar pin')
@@ -93,11 +104,9 @@ class IDLE(BoxLayout):
 		
 		areamodules=self.ids.areamodules
 		areamodules.clear_widgets()
-
 		mod_sum=Button(text='()+()')
 		mod_sum.Color=(0,1,1)
 		subtraction=Button(text='()-()')
-		subtraction.bind(on_press=function_drags())
 		multiplication=Button(text='()x()')
 		division=Button(text='()/()')
 		greater_than=Button(text='()>()')
