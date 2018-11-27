@@ -24,7 +24,36 @@ sys.path.insert(0, '../Builder'); import Compilador
 def validate(instance):
     print("funciona")
 
-def Compilation(instance):
+def prueba(instance):
+    FileBase() # Copia base a temp.ino
+    x = Modulo.Led_On("13")
+    nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+    nfh.write(x.write(1, ""))
+    nfh.close()
+
+def Alert(ins, res):
+    content = BoxLayout(orientation='vertical', spacing=5)
+    popup = Popup(title='Alerta', content=content, auto_dismiss=False, size_hint=(None, None),
+                  size=(480, 160))
+    
+    txt = Label(text='Ha ocurrido un error') 
+    if ins == 1:
+        if res:
+            txt = Label(text='Se ha compilado correctamente')
+    if ins == 2:
+        if res:
+            txt = Label(text='Se ha cargado el hardware')
+
+    content.add_widget(txt)
+    btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
+    btn = Button(text='Aceptar')
+    btn.bind(on_release=popup.dismiss)
+    btnlayout.add_widget(btn)
+    content.add_widget(btnlayout)
+    
+    popup.open()
+
+def Compilate(instance):
     nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
     nfh.write("}")
     nfh.close()
@@ -32,15 +61,15 @@ def Compilation(instance):
     if dp == 0:
         cp = Compilador.Compilador("Windows").compilate()
         if cp == 0:
-            return 0
-    return dp
+            return Alert(1, 1)
+    return Alert(1, 0)
 
-def prueba(instance):
-    FileBase() # Copia base a temp.ino
-    x = Modulo.Led_On("13")
-    nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-    nfh.write(x.write(1, ""))
-    nfh.close()
+def Send(instance):
+    resp = Compilador.Compilador("Windows").send("COM3")
+    param = 0
+    if resp == 0:
+        param = 1
+    return Alert(2, param)
 
 def FileBase():
     nfh = open("Compilador/Builder/temp/temp/temp.ino", "w")
@@ -108,10 +137,11 @@ class IDLE(App):
 
         btncomp = Button()
         btncomp.text = "Compilar"
-        btncomp.bind(on_press=Compilation)
+        btncomp.bind(on_press=Compilate)
 
         btnsend = Button()
         btnsend.text = "Enviar"
+        btnsend.bind(on_press=Send)
 
         optionslo.add_widget(icon)
         optionslo.add_widget(btnfile)
