@@ -18,14 +18,14 @@ from kivy.core.window import Window
 from kivy.app import App
 
 sys.path.insert(0, 'Modulo'); import Modulo
-sys.path.insert(0, '../Compilador'); import Compilador
+sys.path.insert(0, '../Builder'); import Compilador
 
 
 def validate(instance):
     print("funciona")
 
 def Compilation(instance):
-    nfh = open("Compilador/Compilador/temp/temp/temp.ino", "a")
+    nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
     nfh.write("}")
     nfh.close()
     dp = Compilador.Compilador("Windows").dump_prefs()
@@ -38,13 +38,13 @@ def Compilation(instance):
 def prueba(instance):
     FileBase() # Copia base a temp.ino
     x = Modulo.Led_On("13")
-    nfh = open("Compilador/Compilador/temp/temp/temp.ino", "a")
+    nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
     nfh.write(x.write(1, ""))
     nfh.close()
 
 def FileBase():
-    nfh = open("Compilador/Compilador/temp/temp/temp.ino", "w")
-    with open("Compilador/Compilador/temp/base/base.ino") as f:
+    nfh = open("Compilador/Builder/temp/temp/temp.ino", "w")
+    with open("Compilador/Builder/temp/base/base.ino") as f:
         content = f.readlines()
     for line in content:
         nfh.write(line)

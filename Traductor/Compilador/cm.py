@@ -4,13 +4,13 @@ class Compilador():
     def __init__(self, system):
         self.path = os.path.abspath(__file__)
         self.path = os.path.dirname(self.path)
-        self.path = self.path + "/Compilador/arduino-builder"
+        self.path = self.path + "/Builder/arduino-builder"
         self.path = os.path.abspath(self.path)
         self.libraries = self.path + "/libraries"
         self.libraries = os.path.abspath(self.libraries)
         self.path = os.path.abspath(__file__)
         self.path = os.path.dirname(self.path)
-        self.path = self.path + "/Compilador"
+        self.path = self.path + "/Builder"
         self.build_path = self.path + "/temp/build"
         self.build_path = os.path.abspath(self.build_path)
         self.build_cache = self.path + "/temp/temp"
