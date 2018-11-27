@@ -14,6 +14,7 @@ from kivy.uix.filechooser import FileChooserListView
 from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
+from kivy.uix.scatter import Scatter
 import os
 
 class IDLE(BoxLayout):
@@ -52,6 +53,10 @@ class IDLE(BoxLayout):
 		btnclose.bind(on_press=popup.dismiss)
 		popup.open()
 
+	def function_drags(self):
+		#scatter = Scatter(do_rotation=False)
+		#scatter.add_widget(subtraction)
+		print('hola')
 	
 	
 	def modmakers(self):
@@ -83,13 +88,16 @@ class IDLE(BoxLayout):
 		areamodules.add_widget(control_time)
 		areamodules.add_widget(control_while)
 
+
 	def modopr(self):
+		
 		areamodules=self.ids.areamodules
 		areamodules.clear_widgets()
 
 		mod_sum=Button(text='()+()')
 		mod_sum.Color=(0,1,1)
 		subtraction=Button(text='()-()')
+		subtraction.bind(on_press=function_drags())
 		multiplication=Button(text='()x()')
 		division=Button(text='()/()')
 		greater_than=Button(text='()>()')
@@ -104,7 +112,6 @@ class IDLE(BoxLayout):
 		areamodules.add_widget(same_that)
 
 
-	
 class MainApp(App):
 	title = "NEWTIDEIDLE"
 	def build(self):
