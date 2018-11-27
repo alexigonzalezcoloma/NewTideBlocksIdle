@@ -19,47 +19,101 @@ import os
 
 class IDLE(BoxLayout):
 
-	def FileDialog(self):
-		content = BoxLayout(orientation='vertical', spacing=5)
-		popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
 
-		path = os.getcwd()
-		textinput = FileChooserListView(path=path, size_hint=(1, 1), dirselect=True)
+        def validate(instance):
+                print("funciona")
 
-		content.add_widget(textinput)
+        # Muestra alertas luego de compilar o enviar
+	def Alert(ins, res):
+                content = BoxLayout(orientation='vertical', spacing=5)
+                popup = Popup(title='Alerta', content=content, auto_dismiss=False, size_hint=(None, None), size=(480, 160))
+    
+                txt = Label(text='Ha ocurrido un error') 
+                if ins == 1:
+                        if res:
+                                txt = Label(text='Se ha compilado correctamente')
+                if ins == 2:
+                        if res:
+                                txt = Label(text='Se ha cargado el hardware')
 
-		btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
-		btn = Button(text='Ok')
-	   
-		btnlayout.add_widget(btn)
-		btn = Button(text='Cancel')
-		btn.bind(on_release=popup.dismiss)
-		btnlayout.add_widget(btn)
-		content.add_widget(btnlayout)
-		popup.open()
-	
-	def validate(instance):
-		print("funciona")
+                content.add_widget(txt)
+                btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
+                btn = Button(text='Aceptar')
+                btn.bind(on_release=popup.dismiss)
+                btnlayout.add_widget(btn)
+                content.add_widget(btnlayout)
+    
+                popup.open()
+
+        # Invocación de compilador de arduino
+        def Compilate(instance):
+                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                nfh.write("}")
+                nfh.close()
+                dp = Compilador.Compilador("Windows").dump_prefs()
+                if dp == 0:
+                        cp = Compilador.Compilador("Windows").compilate()
+                        if cp == 0:
+                                return Alert(1, 1)
+                return Alert(1, 0)
+
+        # Envia .hex a hardware
+        def Send(instance):
+                resp = Compilador.Compilador("Windows").send("COM3")
+                param = 0
+                if resp == 0:
+                        param = 1
+                return Alert(2, param)
+
+        # Copia archivo base a archivo temporal para la compilación
+        def FileBase():
+                nfh = open("Compilador/Builder/temp/temp/temp.ino", "w")
+                with open("Compilador/Builder/temp/base/base.ino") as f:
+                        content = f.readlines()
+                for line in content:
+                        nfh.write(line)
+                f.close()
+                nfh.close()
 
 
-	# Abre popup para selección de puerto serial
-	def ConnectionDialog(instance):
-		ports = list(serial.tools.list_ports.comports())
-		content = BoxLayout(orientation='vertical', spacing=5)
-		btnclose = Button(text='Close')
-		content.add_widget(btnclose)
-		popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),
-					  size=(400, 400))
-		btnclose.bind(on_press=popup.dismiss)
-		popup.open()
+        # Abre popup con directorio de archivos
+        def FileDialog(instance):
+                content = BoxLayout(orientation='vertical', spacing=5)
+                popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
 
+                path = os.getcwd()
+                textinput = FileChooserListView(path=path, size_hint=(1, 1), dirselect=True)
+                #textinput.bind(on_path=validate)
+                #textinput = textinput
+
+                content.add_widget(textinput)
+
+                btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
+                btn = Button(text='Ok')
+                btn.bind(on_release=validate)
+                btnlayout.add_widget(btn)
+                btn = Button(text='Cancel')
+                btn.bind(on_release=popup.dismiss)
+                btnlayout.add_widget(btn)
+                content.add_widget(btnlayout)
+                popup.open()
+
+
+        # Abre popup para selección de puerto serial
+        def ConnectionDialog(instance):
+                print(list(serial.tools.list_ports.comports()))
+                content = BoxLayout(orientation='vertical', spacing=5)
+                btnclose = Button(text='Close')
+                content.add_widget(btnclose)
+                popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None), size=(400, 400))
+                btnclose.bind(on_press=popup.dismiss)
+                popup.open()
+
+                
 	def function_drags(self):
 		#scatter = Scatter(do_rotation=False)
 		#scatter.add_widget(subtraction)
 		print('hola')
-
-	
-	
 	
 	def modmakers(self):
 		areamodules=self.ids.areamodules
@@ -110,11 +164,6 @@ class IDLE(BoxLayout):
 		areamodules.add_widget(greater_than)
 		areamodules.add_widget(smaller_than)
 		areamodules.add_widget(same_that)
-
-	def Compilation(instance):
-	    dp = Compilador("Windows").dump_prefs()
-	    cp = Compilador("Windows").compilate()
-	    return dp, cp
 
 	def fxled_on(self,n):
 	    #nfh = open("Compilador/temp/temp.ino", "a")
