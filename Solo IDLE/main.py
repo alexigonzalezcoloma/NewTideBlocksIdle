@@ -58,16 +58,7 @@ class IDLE(BoxLayout):
 		#scatter.add_widget(subtraction)
 		print('hola')
 
-	def Compilation(instance):
-	    dp = Compilador("Windows").dump_prefs()
-	    cp = Compilador("Windows").compilate()
-	    return dp, cp
-
-	def fxled_on(instance):
-	    #nfh = open("Compilador/temp/temp.ino", "a")
-	    x = Modulo.Led_On("13")
-	    x.write(0, "")
-	    #nfh.write(x.write(0, ""))
+	
 	
 	
 	def modmakers(self):
@@ -75,7 +66,7 @@ class IDLE(BoxLayout):
 		areamodules.clear_widgets()
 
 		led_on=Button(text='Encender Led')
-		led_on.bind(fxled_on())
+		led_on.bind(fxled_on('13'))
 		led_off=Button(text='Apagar Led')
 		poweron_pin=Button(text='Encender Pin')
 		poweroff_pin=Button(text='Apagar pin')
@@ -119,6 +110,17 @@ class IDLE(BoxLayout):
 		areamodules.add_widget(greater_than)
 		areamodules.add_widget(smaller_than)
 		areamodules.add_widget(same_that)
+
+	def Compilation(instance):
+	    dp = Compilador("Windows").dump_prefs()
+	    cp = Compilador("Windows").compilate()
+	    return dp, cp
+
+	def fxled_on(self,n):
+	    #nfh = open("Compilador/temp/temp.ino", "a")
+	    x = Modulo.Led_On(n)
+	    x.write(0, "")
+	    #nfh.write(x.write(0, ""))
 
 
 class MainApp(App):
