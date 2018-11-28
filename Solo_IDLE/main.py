@@ -11,12 +11,15 @@ from kivy.uix.popup import Popup
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
+from kivy.uix.checkbox import CheckBox
 from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.scatter import Scatter
 import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
+
+import serial.tools.list_ports
 
 class IDLE(BoxLayout):
 
@@ -100,6 +103,13 @@ class IDLE(BoxLayout):
         def ConnectionDialog(instance):
                 ports = list(serial.tools.list_ports.comports())
                 content = BoxLayout(orientation='vertical', spacing=5)
+                for port in sorted(ports):
+                        portname = port
+                        port = CheckBox()
+                        port.text = str(portname)
+                        port.group = 'group'
+                        content.add_widget(port)
+                        
                 btnclose = Button(text='Close')
                 content.add_widget(btnclose)
                 popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),
