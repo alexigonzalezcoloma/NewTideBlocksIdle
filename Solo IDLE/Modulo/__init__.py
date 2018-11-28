@@ -6,3 +6,7 @@ from control_while import While
 from led_on import Led_On
 from led_off import Led_Off
 from delay import Delay
+from operator_add import Addition
+from operator_sub import Subtraction
+from operator_comp import Comparison
+from operator_mult import Multiplication
