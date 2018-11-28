@@ -27,8 +27,8 @@ class IDLE(BoxLayout):
 	def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
                 popup = Popup(title='Alerta', content=content, auto_dismiss=False, size_hint=(None, None), size=(480, 160))
-    
-                txt = Label(text='Ha ocurrido un error') 
+
+                txt = Label(text='Ha ocurrido un error')
                 if ins == 1:
                         if res:
                                 txt = Label(text='Se ha compilado correctamente')
@@ -42,7 +42,7 @@ class IDLE(BoxLayout):
                 btn.bind(on_release=popup.dismiss)
                 btnlayout.add_widget(btn)
                 content.add_widget(btnlayout)
-    
+
                 popup.open()
 
         # Invocación de compilador de arduino
@@ -109,7 +109,7 @@ class IDLE(BoxLayout):
                 btnclose.bind(on_press=popup.dismiss)
                 popup.open()
 
-                
+
 	def function_drags(self):
 		#scatter = Scatter(do_rotation=False)
 		#scatter.add_widget(subtraction)
