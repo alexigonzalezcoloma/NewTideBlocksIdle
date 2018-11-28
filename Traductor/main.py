@@ -15,7 +15,6 @@ from kivy.uix.filechooser import FileChooserListView
 
 from kivy.config import Config
 from kivy.core.window import Window
-from kivy.app import App
 
 sys.path.insert(0, 'Modulo'); import Modulo
 sys.path.insert(0, '../Builder'); import Compilador
@@ -35,8 +34,8 @@ def Alert(ins, res):
     content = BoxLayout(orientation='vertical', spacing=5)
     popup = Popup(title='Alerta', content=content, auto_dismiss=False, size_hint=(None, None),
                   size=(480, 160))
-    
-    txt = Label(text='Ha ocurrido un error') 
+
+    txt = Label(text='Ha ocurrido un error')
     if ins == 1:
         if res:
             txt = Label(text='Se ha compilado correctamente')
@@ -50,7 +49,7 @@ def Alert(ins, res):
     btn.bind(on_release=popup.dismiss)
     btnlayout.add_widget(btn)
     content.add_widget(btnlayout)
-    
+
     popup.open()
 
 def Compilate(instance):

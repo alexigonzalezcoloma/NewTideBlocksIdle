@@ -12,8 +12,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
 from kivy.config import Config
 from kivy.core.window import Window
-from kivy.app import App
-
 import os, serial
 
 def validate(instance):
