@@ -103,17 +103,19 @@ class IDLE(BoxLayout):
         def ConnectionDialog(instance):
                 ports = list(serial.tools.list_ports.comports())
                 content = BoxLayout(orientation='vertical', spacing=5)
+                lports = BoxLayout(orientation='horizontal', spacing=1)
+                i = 1
                 for port in sorted(ports):
                         portname = port
-                        port = CheckBox()
-                        port.text = str(portname)
-                        port.group = 'group'
-                        content.add_widget(port)
+                        t = ("cb"+str(i)); t = CheckBox(); t.text = str(portname); t.group = 'group'
+                        n = ("lbl"+str(i)); n = Label(); n.text = (str(portname)[:4])
+                        lports.add_widget(t); lports.add_widget(n)
+                        i += 1
                         
                 btnclose = Button(text='Close')
+                content.add_widget(lports)
                 content.add_widget(btnclose)
-                popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),
-                                          size=(400, 400))
+                popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None), size=(400, 400))
                 btnclose.bind(on_press=popup.dismiss)
                 popup.open()
 
