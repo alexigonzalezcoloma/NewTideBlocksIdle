@@ -34,6 +34,9 @@ class IDLE(BoxLayout):
                 if ins == 2:
                         if res:
                                 txt = Label(text='Se ha cargado el hardware')
+                if ins == 3:
+                        if res:
+                                txt = Label(text='Se ha seleccionado correctamente el puerto')
 
                 content.add_widget(txt)
                 btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
@@ -59,8 +62,12 @@ class IDLE(BoxLayout):
 
         # Envia .hex a hardware
         def Send(instance):
-                resp = Compilador("Windows").send("COM3")
                 param = 0
+                
+                try:
+                        resp = Compilador("Windows").send(actualport)
+                except NameError:
+                        return IDLE.Alert(2, param)
                 if resp == 0:
                         param = 1
                 IDLE.FileBase() # Copia base a temp.ino
@@ -95,26 +102,46 @@ class IDLE(BoxLayout):
                 content.add_widget(btnlayout)
                 popup.open()
 
-        def validate(instance):
-                print("funciona")
-
+        def SavePort(instance):
+                global actualport
+                instance.active = True
+                actualport = instance.text
+                return IDLE.Alert(3,1)
 
         # Abre popup para selección de puerto serial
         def ConnectionDialog(instance):
+                cbs = []
                 ports = list(serial.tools.list_ports.comports())
+                
                 content = BoxLayout(orientation='vertical', spacing=5)
-                for port in sorted(ports):
-                        portname = port
-                        port = CheckBox()
-                        port.text = str(portname)
-                        port.group = 'group'
-                        content.add_widget(port)
-                        
+                lports = BoxLayout(orientation='vertical', spacing=1)
+
+                try:
+                        ap = ' -------------------------------- Currently using: '+actualport
+                except NameError:
+                        ap = ''
+                popup = Popup(title='Choose a port'+ap, content=content, auto_dismiss=False, size_hint=(None, None), size=(400, 400))
+                
+                i = 1
+                if len(ports) >= 1:
+                        for port in sorted(ports):
+                                portname = port
+                                cb = CheckBox(); cb.text = (str(portname)[:4]) ; cb.group = 'group'
+                                cb.bind(on_press=IDLE.SavePort)
+                                cbs.append(cb)
+                                lbl = Label(); lbl.text = (str(portname)[:4])
+                                lports.add_widget(cb); lports.add_widget(lbl)
+                                i += 1
+                else:
+                        msg = "No hay puertos disponibles"
+                        msglbl = Label(); msglbl.text = msg; lports.add_widget(msglbl)
+
                 btnclose = Button(text='Close')
-                content.add_widget(btnclose)
-                popup = Popup(title='Choose a port', content=content, auto_dismiss=False, size_hint=(None, None),
-                                          size=(400, 400))
                 btnclose.bind(on_press=popup.dismiss)
+                
+                content.add_widget(lports)
+                content.add_widget(btnclose)
+                
                 popup.open()
 
         def function_drags(self):
