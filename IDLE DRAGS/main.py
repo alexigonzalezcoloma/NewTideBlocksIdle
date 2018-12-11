@@ -15,9 +15,23 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.scatter import Scatter
-
+global bpos
+bpos = 0.85
 
 class IDLE(BoxLayout):
+
+        def DynamicButton(self, instance):
+                global bpos
+                
+                programarea = self.ids.areamodulesprogram
+                btext = instance.text
+                bcolor = instance.background_color
+                
+                dbtn = Button(text=btext, id='led_off',
+                              size_hint=(0.3,0.1), pos_hint={'x':0.2,'y':bpos},
+                              background_color=bcolor)
+                bpos -= 0.15
+                programarea.add_widget(dbtn)
 
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
@@ -122,7 +136,9 @@ class IDLE(BoxLayout):
                 areamodules.clear_widgets()
 
                 led_on=Button(text='Encender Led', id='led_on', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.85}, background_color=(0,1,0,1),border=(20,20,20,20))
+                led_on.bind(on_press=self.DynamicButton)
                 led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.65}, background_color=(0,1,1,1))
+                led_off.bind(on_press=self.DynamicButton)
                 read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45}, background_color=(0,0,1,1))
                 areamodules.add_widget(led_on)
                 areamodules.add_widget(led_off)
