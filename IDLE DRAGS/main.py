@@ -16,23 +16,31 @@ from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.scatter import Scatter
 from kivy.uix.dropdown import DropDown
-global bpos
-bpos = 0.85
+global nbtn; nbtn = 0
+xpos = 0.1; ypos = 0.85
 
 class IDLE(BoxLayout):
 
         def DynamicButton(self, instance):
-                global bpos
-
+                global xpos, ypos, nbtn
+                
                 programarea = self.ids.areamodulesprogram
                 btext = instance.text
                 bcolor = instance.background_color
-
-                dbtn = Button(text=btext, id='led_off',
-                              size_hint=(0.3,0.1), pos_hint={'x':0.2,'y':bpos},
+                
+                dbtn = Button(text=btext, id=str(nbtn),
+                              size_hint=(0.2,0.1), pos_hint={'x':xpos,'y':ypos},
                               background_color=bcolor)
-                bpos -= 0.15
-                programarea.add_widget(dbtn)
+                #dbtn.bind(on_press=dbtn.clear_widgets())
+                
+                if ypos > 0.15 and xpos < 1:
+                        ypos -= 0.15
+                        print (xpos, ypos)
+                        nbtn += 1; print (nbtn);programarea.add_widget(dbtn)
+                elif xpos < 1:
+                        nbtn += 1; print (nbtn);programarea.add_widget(dbtn)
+                        xpos += 0.3
+                        ypos = 0.85
 
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
@@ -145,10 +153,10 @@ class IDLE(BoxLayout):
                 areamodules.clear_widgets()
 
                 led_on=Button(text='Encender Led', id='led_on', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.85}, background_color=(0,1,0,1),border=(20,20,20,20))
-                #led_on.bind(on_press=self.DynamicButton)
+                led_on.bind(on_press=self.DynamicButton)
                 led_on.bind(on_release=dropdown.open)
                 led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.65}, background_color=(0,1,1,1))
-                #led_off.bind(on_press=self.DynamicButton)
+                led_off.bind(on_press=self.DynamicButton)
                 led_off.bind(on_release=dropdown.open)
                 read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45}, background_color=(0,0,1,1))
                 areamodules.add_widget(led_on)
