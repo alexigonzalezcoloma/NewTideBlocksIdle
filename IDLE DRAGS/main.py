@@ -4,7 +4,6 @@ from kivy.app import App
 from kivy.graphics import Color
 from kivy.uix.widget import Widget
 from kivy.uix.image import Image
-from kivy.graphics import Color
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
@@ -13,7 +12,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
 from kivy.config import Config
 from kivy.core.window import Window
-from kivy.app import App
 from kivy.uix.scatter import Scatter
 from kivy.uix.dropdown import DropDown
 global nbtn; nbtn = 0
@@ -23,16 +21,16 @@ class IDLE(BoxLayout):
 
         def DynamicButton(self, instance):
                 global xpos, ypos, nbtn
-                
+
                 programarea = self.ids.areamodulesprogram
                 btext = instance.text
                 bcolor = instance.background_color
-                
+
                 dbtn = Button(text=btext, id=str(nbtn),
                               size_hint=(0.2,0.1), pos_hint={'x':xpos,'y':ypos},
                               background_color=bcolor)
                 #dbtn.bind(on_press=dbtn.clear_widgets())
-                
+
                 if ypos > 0.15 and xpos < 1:
                         ypos -= 0.15
                         print (xpos, ypos)
@@ -141,23 +139,31 @@ class IDLE(BoxLayout):
 
         def modmakers(self):
 
-                dropdown = DropDown()
-                Colors = ["blanco","rojo","verde","naranjo"]
+                dropdownon = DropDown()
+                Colors = ["Encender blanco","Encender rojo","Encender verde","Encender naranjo"]
                 for index in range(4):
-                    btn = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
-                    btn.bind(on_press=self.DynamicButton)
-                    dropdown.add_widget(btn)
+                    btnon = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
+                    btnon.bind(on_press=self.DynamicButton)
+                    dropdownon.add_widget(btnon)
+
+                dropdownoff = DropDown()
+                Colors = ["Apagar blanco","Apagar rojo","Apagar verde","Apagar naranjo"]
+                for index in range(4):
+                    btnoff = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
+                    btnoff.bind(on_press=self.DynamicButton)
+                    dropdownoff.add_widget(btnoff)
+
+
 
                 areamodules=Scatter(do_rotation=False, do_scale=False)
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
                 led_on=Button(text='Encender Led', id='led_on', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.85}, background_color=(0,1,0,1),border=(20,20,20,20))
-                led_on.bind(on_press=self.DynamicButton)
-                led_on.bind(on_release=dropdown.open)
+                led_on.bind(on_release=dropdownon.open)
                 led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.65}, background_color=(0,1,1,1))
-                led_off.bind(on_press=self.DynamicButton)
-                led_off.bind(on_release=dropdown.open)
+
+                led_off.bind(on_release=dropdownoff.open)
                 read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45}, background_color=(0,0,1,1))
                 areamodules.add_widget(led_on)
                 areamodules.add_widget(led_off)
