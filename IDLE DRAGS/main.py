@@ -26,19 +26,25 @@ class IDLE(BoxLayout):
                 btext = instance.text
                 bcolor = instance.background_color
 
-                dbtn = Button(text=btext, id=str(nbtn),
+                dbtn = "dbtn"+str(nbtn)
+
+                self.dbtn = Button(text=btext, id=str(nbtn),
                               size_hint=(0.2,0.1), pos_hint={'x':xpos,'y':ypos},
                               background_color=bcolor)
-                #dbtn.bind(on_press=dbtn.clear_widgets())
+                self.dbtn.bind(on_press=self.DynamicClear)
 
                 if ypos > 0.15 and xpos < 1:
-                        ypos -= 0.15
-                        print (xpos, ypos)
-                        nbtn += 1; print (nbtn);programarea.add_widget(dbtn)
+                        ypos -= 0.10
+                        nbtn += 1; programarea.add_widget(self.dbtn)
                 elif xpos < 1:
-                        nbtn += 1; print (nbtn);programarea.add_widget(dbtn)
+                        nbtn += 1; programarea.add_widget(self.dbtn)
                         xpos += 0.3
                         ypos = 0.85
+
+        def DynamicClear(self, instance):
+                programarea = self.ids.areamodulesprogram
+                programarea.remove_widget(instance)
+        
 
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
