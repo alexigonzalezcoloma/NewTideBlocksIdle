@@ -114,9 +114,18 @@ class IDLE(BoxLayout):
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
+                dropdowntime=DropDown()
+                time = ["0,1s","0,2s","1s"]
+                for index in range(3):
+                    btn_time = Button(text='%s' % time[index], size_hint_y=None, height=44)
+                    btn_time.bind(on_press=self.DynamicButton)
+                    dropdowntime.add_widget(btn_time)
+
                 control_if=Button(text='If(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1))
                 control_time=Button(text='Pause(time)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50},background_color=(0,1,1,1))
                 control_while=Button(text='While(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30},background_color=(0,0,1,1))
+
+                control_time.bind(on_release=dropdowntime.open)
 
                 areamodules.add_widget(control_if)
                 areamodules.add_widget(control_time)
@@ -127,13 +136,13 @@ class IDLE(BoxLayout):
 
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
-                mod_sum=Button(text='()+()', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.85}, background_color=(0,1,1,1))
-                subtraction=Button(text='()-()',size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.75}, background_color=(0,1,1,1))
-                multiplication=Button(text='()x()',size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.65}, background_color=(0,1,1,1))
-                division=Button(text='()/()',size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.55}, background_color=(0,1,1,1))
-                greater_than=Button(text='()>()',size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45}, background_color=(0,1,1,1))
-                smaller_than=Button(text='()<()',size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.35}, background_color=(0,1,1,1))
-                same_that=Button(text='()==()',size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.25}, background_color=(0,1,1,1))
+                mod_sum=Button(text='()+()', size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.75}, background_color=(0,1,1,1))
+                subtraction=Button(text='()-()',size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.65}, background_color=(0,1,1,1))
+                multiplication=Button(text='()x()',size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.55}, background_color=(0,1,1,1))
+                division=Button(text='()/()',size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.45}, background_color=(0,1,1,1))
+                greater_than=Button(text='()>()',size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.35}, background_color=(0,1,1,1))
+                smaller_than=Button(text='()<()',size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.25}, background_color=(0,1,1,1))
+                same_that=Button(text='()==()',size_hint=(0.5,0.1), pos_hint={'x':0.25,'y':0.15}, background_color=(0,1,1,1))
 
                 areamodules.add_widget(mod_sum)
                 areamodules.add_widget(subtraction)
