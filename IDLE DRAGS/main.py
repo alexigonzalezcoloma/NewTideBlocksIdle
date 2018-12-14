@@ -114,9 +114,9 @@ class IDLE(BoxLayout):
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
-                control_if=Button(text='If(Condicion)', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.85}, background_color=(0,1,0,1))
-                control_time=Button(text='Pause(time)', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.65},background_color=(0,1,1,1))
-                control_while=Button(text='While(Condicion)', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45},background_color=(0,0,1,1))
+                control_if=Button(text='If(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1))
+                control_time=Button(text='Pause(time)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50},background_color=(0,1,1,1))
+                control_while=Button(text='While(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30},background_color=(0,0,1,1))
 
                 areamodules.add_widget(control_if)
                 areamodules.add_widget(control_time)
@@ -159,25 +159,31 @@ class IDLE(BoxLayout):
                     btnoff.bind(on_press=self.DynamicButton)
                     dropdownoff.add_widget(btnoff)
 
+                dropdownpin=DropDown()
+                pins = ["Leer Pin A","Leer Pin B","Leer Pin C"]
+                for index in range(3):
+                    btn_pin = Button(text='%s' % pins[index], size_hint_y=None, height=44)
+                    btn_pin.bind(on_press=self.DynamicButton)
+                    dropdownpin.add_widget(btn_pin)
+
 
 
                 areamodules=Scatter(do_rotation=False, do_scale=False)
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
-                led_on=Button(text='Encender Led', id='led_on', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.85}, background_color=(0,1,0,1),border=(20,20,20,20))
+                led_on=Button(text='Encender Led', id='led_on', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1),border=(20,20,20,20))
                 led_on.bind(on_release=dropdownon.open)
-                led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.65}, background_color=(0,1,1,1))
-
+                
+                led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50}, background_color=(0,1,1,1))
                 led_off.bind(on_release=dropdownoff.open)
-                read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45}, background_color=(0,0,1,1))
+                
+                read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30}, background_color=(0,0,1,1))
+                read_pin.bind(on_release=dropdownpin.open)
+
                 areamodules.add_widget(led_on)
                 areamodules.add_widget(led_off)
                 areamodules.add_widget(read_pin)
-
-
-                read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.5,0.1), pos_hint={'x':0.2,'y':0.45}, background_color=(0,0,1,1))
-
 
 class LEDS(Widget):
     def on_touch_down(self,touch):
