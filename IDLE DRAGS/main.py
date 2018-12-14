@@ -29,7 +29,7 @@ class IDLE(BoxLayout):
                 dbtn = "dbtn"+str(nbtn)
 
                 self.dbtn = Button(text=btext, id=str(nbtn),
-                              size_hint=(0.2,0.1), pos_hint={'x':xpos,'y':ypos},
+                              size_hint=(0.25,0.1), pos_hint={'x':xpos,'y':ypos},
                               background_color=bcolor)
                 self.dbtn.bind(on_press=self.DynamicClear)
 
