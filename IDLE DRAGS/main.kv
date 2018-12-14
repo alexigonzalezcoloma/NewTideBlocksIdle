@@ -2,7 +2,7 @@
     spacing: 30
     canvas:
         Color:
-            rgb: 1,1,1
+            rgb: 0,0,0
         Rectangle:
             size: self.size
             pos: self.pos
@@ -28,36 +28,40 @@
                     size: self.size
                     pos: self.pos
 
-            Image:
-                source:'logo.png'
-                size_hint:(None,0.8)
-                pos_hint:{'x':0.01,'y':0.05}
-
+            Button:
+                text:'UCT Blocks'
+                size_hint:(0.17,1)
+                pos_hint:{'x':0.02,'y':0.0}
+                
+            
             Button:
                 id:file
                 text:'Archivo'
                 on_press:app.IDLE.FileDialog()
-                size_hint:(0.15,0.8)
-                pos_hint:{'x':0.15,'y':0.05}
+                background_color:[1,1,1]
+                size_hint:(0.15,0.82)
+                pos_hint:{'x':0.27,'y':0.12}
 
             Button:
                 id:connect
                 text:'Conectar'
-                size_hint:(0.15,0.8)
-                pos_hint:{'x':0.35,'y':0.05}
+                background_color:[1,1,1]
+                size_hint:(0.15,0.82)
+                pos_hint:{'x':0.46,'y':0.12}
 
             Button:
                 id:compilar
                 text:'Compilar'
-                background_color:[0,1,1,1]
-                size_hint:(0.15,0.8)
-                pos_hint:{'x':0.55,'y':0.05}
+                background_color:[1,1,1]
+                size_hint:(0.15,0.82)
+                pos_hint:{'x':0.66,'y':0.12}
 
             Button:
                 id:send
                 text:'Enviar'
-                size_hint:(0.15,0.8)
-                pos_hint:{'x':0.75,'y':0.05}
+                background_color:[1,1,1]
+                size_hint:(0.15,0.82)
+                pos_hint:{'x':0.85,'y':0.12}
 
         BoxLayout:
             id:area2
@@ -72,25 +76,27 @@
                     size: self.size
                     pos: self.pos
 
-            BoxLayout:
+            FloatLayout:
                 orientation: "vertical"
                 id:modules
                 size_hint: 0.3,1
 
                 canvas:
                     Color:
-                        rgba: 1,1,1,1
+                        rgb: 71/255,82/255,94/255
                     Rectangle:
                         size: self.size
                         pos: self.pos
 
                 BoxLayout:
                     id:tabsmodules
-                    size_hint: 1,0.06
+                    size_hint: 0.99,0.06
+                    pos_hint:{'x':0.005,'y':0.940}
+
 
                     canvas:
                         Color:
-                            rgba: 1,1,1,1
+                            rgb: 71/255,82/255,94/255
                         Rectangle:
                             size: self.size
                             pos: self.pos
@@ -98,79 +104,63 @@
                     Button:
                         id:btnmaker
                         text:'Maker'
-                        background_color:[1,1,1,1]
-                        border: 20,20,20,20
+                        background_color:1,1,1,1
                         on_press:app.IDLE.modmakers()
                     Button:
                         id:btnctrl
                         text:'Control'
-                        border: 20,20,20,20
+                        background_color:1,1,1,1
                         on_press:app.IDLE.modcontrols()
                     Button:
                         id:btnopr
                         text:'Operador'
-                        border: 20,20,20,20
+                        background_color:1,1,1,1
                         on_press:app.IDLE.modopr()
-
+                
                 FloatLayout:
                     orientation:'vertical'
                     id:areamodules
-                    size_hint: 1,0.9
+                    size_hint: .99,0.93
+                    pos_hint:{'x':0.005,'y':0.005}
 
                     canvas:
                         Color:
-                            rgba: 0,0,0,.7
+                            rgb: 244/255,238/255,249/255
                         Rectangle:
                             size: self.size
                             pos: self.pos
+                    
 
+                   
 
-
-
-            BoxLayout:
+            FloatLayout:
                 orientation: "vertical"
                 id:program
                 size_hint: 0.70,1
 
                 canvas:
                     Color:
-                        rgba: 1,1,1,1
+                        rgb: 71/255,82/255,94/255
                     Rectangle:
                         size: self.size
                         pos: self.pos
-
-                BoxLayout:
-                    orientation:"horizontal"
-                    id:tabsprogram
-                    size_hint: 1,0.048
-
-
-                    canvas:
-                        Color:
-                            rgba: 0,0,0,.7
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
-                    Button:
-                        text:'     +'
-                    Button:
-                        text:'     +'
-
-
+                    
+                
                 FloatLayout:
                     id:areamodulesprogram
-                    size_hint: 1,0.9
+                    size_hint: .992,0.992
+                    pos_hint:{'x':0.0042,'y':0.005}
 
                     canvas:
                         Color:
-                            rgba: 0,0,0,.7
+                            rgb: 244/255,238/255,249/255
                         Rectangle:
                             size: self.size
                             pos: self.pos
 
 <LEDS>:
     size_hint: 1,0.9
-
+    
 
     canvas:
         Color:
