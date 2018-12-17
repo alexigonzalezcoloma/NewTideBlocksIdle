@@ -44,6 +44,7 @@ class IDLE(BoxLayout):
         def DynamicClear(self, instance):
                 programarea = self.ids.areamodulesprogram
                 programarea.remove_widget(instance)
+                
         
 
         def Alert(ins, res):
