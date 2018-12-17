@@ -12,16 +12,54 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.checkbox import CheckBox
+from kivy.uix.dropdown import DropDown
 from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.scatter import Scatter
 import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
+global nbtn; nbtn = 0
+global abtn; abtn = []
+import time
+xpos = 0.1; ypos = 0.85
 
 import serial.tools.list_ports
 
 class IDLE(BoxLayout):
+
+        def dbv2(self, instance):
+                global abtn, xpos, ypos, nbtn
+
+                btext = instance.text
+                bcolor = instance.background_color
+
+                self.dbtn = Button(text=btext, id=str(nbtn),
+                              size_hint=(0.25,0.1), pos_hint={'x':xpos,'y':ypos},
+                              background_color=bcolor)
+                self.dbtn.bind(on_press=self.DynamicClear)
+                
+                if ypos > 0.15 and xpos < 1:
+                        ypos -= 0.10
+                        nbtn += 1
+                elif xpos < 1:
+                        nbtn += 1
+                        xpos += 0.3
+                        ypos = 0.85
+                abtn.append(self.dbtn)
+                self.repaint()
+
+        def repaint(self):
+                programarea = self.ids.areamodulesprogram
+
+                for l in abtn:
+                        print(abtn)
+                        programarea.remove_widget(l)
+                time.sleep(1)
+                for j in abtn:
+                        print(abtn)
+                        programarea.add_widget(j)
+
 
         def DynamicButton(self, instance):
                 global xpos, ypos, nbtn
@@ -39,16 +77,30 @@ class IDLE(BoxLayout):
 
                 if ypos > 0.15 and xpos < 1:
                         ypos -= 0.10
+                        abtn.append(self.dbtn)
                         nbtn += 1; programarea.add_widget(self.dbtn)
                 elif xpos < 1:
                         nbtn += 1; programarea.add_widget(self.dbtn)
+                        abtn.append(self.dbtn)
                         xpos += 0.3
                         ypos = 0.85
 
         def DynamicClear(self, instance):
+                global abtn, ypos, nbtn
                 programarea = self.ids.areamodulesprogram
-                programarea.remove_widget(instance)
-                
+                index = int(instance.id)
+                aux = abtn[index].pos[1]
+                for k in range(index, len(abtn)):
+                        abtn[k].id = str(k-1)
+                        #print(abtn[k].pos)
+                        abtn[k].pos = [abtn[k].pos[0], aux]
+                        aux = abtn[k].pos[1]
+                        #print(abtn[k].pos)
+                ypos += 0.10
+                nbtn -= 1
+                programarea.remove_widget(abtn[index])
+                abtn.pop(index)
+                self.repaint()
 
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
@@ -182,21 +234,21 @@ class IDLE(BoxLayout):
                 Colors = ["Encender blanco","Encender rojo","Encender verde","Encender naranjo"]
                 for index in range(4):
                     btnon = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
-                    btnon.bind(on_press=self.DynamicButton)
+                    btnon.bind(on_press=self.dbv2)
                     dropdownon.add_widget(btnon)
 
                 dropdownoff = DropDown()
                 Colors = ["Apagar blanco","Apagar rojo","Apagar verde","Apagar naranjo"]
                 for index in range(4):
                     btnoff = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
-                    btnoff.bind(on_press=self.DynamicButton)
+                    btnoff.bind(on_press=self.dbv2)
                     dropdownoff.add_widget(btnoff)
 
                 dropdownpin=DropDown()
                 pins = ["Leer Pin A","Leer Pin B","Leer Pin C"]
                 for index in range(3):
                     btn_pin = Button(text='%s' % pins[index], size_hint_y=None, height=44)
-                    btn_pin.bind(on_press=self.DynamicButton)
+                    btn_pin.bind(on_press=self.dbv2)
                     dropdownpin.add_widget(btn_pin)
 
 
