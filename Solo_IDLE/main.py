@@ -17,6 +17,9 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.scatter import Scatter
+from kivy.uix.dropdown import DropDown
+global nbtn; nbtn = 0
+xpos = 0.1; ypos = 0.85
 import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
 global nbtn; nbtn = 0
@@ -24,7 +27,7 @@ global abtn; abtn = []
 import time
 xpos = 0.1; ypos = 0.85
 
-import serial.tools.list_ports
+#import serial.tools.list_ports
 
 class IDLE(BoxLayout):
 
