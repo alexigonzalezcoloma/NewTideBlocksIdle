@@ -45,9 +45,11 @@
             Button:
                 id:connect
                 text:'Conectar'
+                on_press:app.IDLE.ConnectionDialog()
                 background_color:[1,1,1]
                 size_hint:(0.15,0.82)
                 pos_hint:{'x':0.46,'y':0.12}
+
 
             Button:
                 id:compilar

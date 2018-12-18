@@ -18,15 +18,17 @@ from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.scatter import Scatter
 from kivy.uix.dropdown import DropDown
-global nbtn; nbtn = 0
+global nbtn
 xpos = 0.1; ypos = 0.85
 import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
-global nbtn; nbtn = 0
+global nbtn 
+nbtn = 0
 global abtn; abtn = []
 import time
 xpos = 0.1; ypos = 0.85
-
+import serial
+from serial import *
 #import serial.tools.list_ports
 
 class IDLE(BoxLayout):
@@ -56,16 +58,17 @@ class IDLE(BoxLayout):
                 programarea = self.ids.areamodulesprogram
 
                 for l in abtn:
-                        print(abtn)
+                        #print(abtn)
                         programarea.remove_widget(l)
-                time.sleep(1)
+                #time.sleep(1)
                 for j in abtn:
-                        print(abtn)
+                        #print(abtn)
                         programarea.add_widget(j)
 
 
         def DynamicButton(self, instance):
                 global xpos, ypos, nbtn
+                s=Scatter(do_rotation=False)
 
                 programarea = self.ids.areamodulesprogram
                 btext = instance.text
@@ -75,9 +78,10 @@ class IDLE(BoxLayout):
 
                 self.dbtn = Button(text=btext, id=str(nbtn),
                               size_hint=(0.25,0.1), pos_hint={'x':xpos,'y':ypos},
-                              background_color=bcolor)
+                              background_color=(0,1,1))
                 self.dbtn.bind(on_press=self.DynamicClear)
 
+                #programarea.add_widget(s)
                 if ypos > 0.15 and xpos < 1:
                         ypos -= 0.10
                         abtn.append(self.dbtn)
@@ -87,6 +91,8 @@ class IDLE(BoxLayout):
                         abtn.append(self.dbtn)
                         xpos += 0.3
                         ypos = 0.85
+
+                
 
         def DynamicClear(self, instance):
                 global abtn, ypos, nbtn
@@ -255,8 +261,6 @@ class IDLE(BoxLayout):
                     dropdownpin.add_widget(btn_pin)
 
 
-
-                areamodules=Scatter(do_rotation=False, do_scale=False)
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
@@ -288,10 +292,8 @@ class IDLE(BoxLayout):
             x = Modulo.Delay(Sec)
             nfh.write(x.write(0, ""))
 
-
-
-
         def modcontrols(self):
+               
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
@@ -311,7 +313,6 @@ class IDLE(BoxLayout):
                 areamodules.add_widget(control_if)
                 areamodules.add_widget(control_time)
                 areamodules.add_widget(control_while)
-
 
         def modopr(self):
 
