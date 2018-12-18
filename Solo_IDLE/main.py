@@ -24,13 +24,31 @@ import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
 global nbtn; nbtn = 0
 global abtn; abtn = []
-import time
+global afnc; afnc = []
+#import time
 xpos = 0.1; ypos = 0.85
 
 #import serial.tools.list_ports
 
 class IDLE(BoxLayout):
 
+        def PreComp(aFx):
+                for e in range(len(aFx)):
+                        if e == "Encender blanco":
+                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                                x = Modulo.Led_On("14") #Cambiar por color correcto xd
+                                nfh.write(x.write(0, ""))
+                                
+                        if e == "Encender rojo":
+                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                                x = Modulo.Led_On("12") #Cambiar por color correcto xd
+                                nfh.write(x.write(0, ""))
+
+                        if e == "Encender azul":
+                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                                x = Modulo.Led_On("13") #Cambiar por color correcto xd
+                                nfh.write(x.write(0, ""))
+                        
         def dbv2(self, instance):
                 global abtn, xpos, ypos, nbtn
 
@@ -50,6 +68,7 @@ class IDLE(BoxLayout):
                         xpos += 0.3
                         ypos = 0.85
                 abtn.append(self.dbtn)
+                afnc.append(btext)
                 self.repaint()
 
         def repaint(self):
@@ -58,7 +77,7 @@ class IDLE(BoxLayout):
                 for l in abtn:
                         print(abtn)
                         programarea.remove_widget(l)
-                time.sleep(1)
+                #time.sleep(1)
                 for j in abtn:
                         print(abtn)
                         programarea.add_widget(j)
@@ -103,6 +122,7 @@ class IDLE(BoxLayout):
                 nbtn -= 1
                 programarea.remove_widget(abtn[index])
                 abtn.pop(index)
+                afnc.pop(index)
                 self.repaint()
 
         def Alert(ins, res):
@@ -132,6 +152,7 @@ class IDLE(BoxLayout):
 
         # Invocación de compilador de arduino
         def Compilate(instance):
+                self.PreComp(afnc)
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
                 nfh.write("}")
                 nfh.close()
