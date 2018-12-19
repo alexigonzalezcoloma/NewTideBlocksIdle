@@ -57,13 +57,33 @@ class IDLE(BoxLayout):
                         if e == "Apagar amarillo":
                                 x = Modulo.Led_Off("5")
 
-                        if e == "1s":
+                        if e == "Pause(1s)":
                                 x = Modulo.Delay(1000)
+
+                        if e == "1 vez":
+                                x = Modulo.While(1)
+
+                        if e == "2 veces":
+                                x = Modulo.While(2)
+
+                        if e == "3 veces":
+                                x = Modulo.While(3)
 
                         nfh.write(x.write(0, ""))
                 nfh.close()
 
-        def dbv2(self, instance):
+        def Repaint(self):
+                programarea = self.ids.areamodulesprogram
+
+                for l in abtn:
+                        #print(abtn)
+                        programarea.remove_widget(l)
+                #time.sleep(1)
+                for j in abtn:
+                        #print(abtn)
+                        programarea.add_widget(j)
+                        
+        def DynamicButton(self, instance):
                 global abtn, xpos, ypos, nbtn
 
                 btext = instance.text
@@ -83,47 +103,7 @@ class IDLE(BoxLayout):
                         ypos = 0.85
                 abtn.append(self.dbtn)
                 afnc.append(btext)
-                self.repaint()
-
-        def repaint(self):
-                programarea = self.ids.areamodulesprogram
-
-                for l in abtn:
-                        #print(abtn)
-                        programarea.remove_widget(l)
-                #time.sleep(1)
-                for j in abtn:
-                        #print(abtn)
-                        programarea.add_widget(j)
-
-
-        def DynamicButton(self, instance):
-                global xpos, ypos, nbtn
-                s=Scatter(do_rotation=False)
-
-                programarea = self.ids.areamodulesprogram
-                btext = instance.text
-                bcolor = instance.background_color
-
-                dbtn = "dbtn"+str(nbtn)
-
-                self.dbtn = Button(text=btext, id=str(nbtn),
-                              size_hint=(0.25,0.1), pos_hint={'x':xpos,'y':ypos},
-                              background_color=(0,1,1))
-                self.dbtn.bind(on_press=self.DynamicClear)
-
-                #programarea.add_widget(s)
-                if ypos > 0.15 and xpos < 1:
-                        ypos -= 0.10
-                        abtn.append(self.dbtn)
-                        nbtn += 1; programarea.add_widget(self.dbtn)
-                elif xpos < 1:
-                        nbtn += 1; programarea.add_widget(self.dbtn)
-                        abtn.append(self.dbtn)
-                        xpos += 0.3
-                        ypos = 0.85
-
-
+                self.Repaint()
 
         def DynamicClear(self, instance):
                 global abtn, ypos, nbtn
@@ -141,7 +121,7 @@ class IDLE(BoxLayout):
                 programarea.remove_widget(abtn[index])
                 abtn.pop(index)
                 afnc.pop(index)
-                self.repaint()
+                self.Repaint()
 
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
@@ -166,7 +146,6 @@ class IDLE(BoxLayout):
                 content.add_widget(btnlayout)
 
                 popup.open()
-
 
         # Invocación de compilador de arduino
         def Compilate(instance):
@@ -266,32 +245,27 @@ class IDLE(BoxLayout):
 
                 popup.open()
 
-        def function_drags(self):
-                #scatter = Scatter(do_rotation=False)
-                #scatter.add_widget(subtraction)
-                print('hola')
-
 
         def modmakers(self):
                 dropdownon = DropDown()
                 Colors = ["Encender blanco","Encender rojo","Encender verde","Encender amarillo"]
                 for index in range(4):
                     btnon = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
-                    btnon.bind(on_press=self.dbv2)
+                    btnon.bind(on_press=self.DynamicButton)
                     dropdownon.add_widget(btnon)
 
                 dropdownoff = DropDown()
                 Colors = ["Apagar blanco","Apagar rojo","Apagar verde","Apagar amarillo"]
                 for index in range(4):
                     btnoff = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
-                    btnoff.bind(on_press=self.dbv2)
+                    btnoff.bind(on_press=self.DynamicButton)
                     dropdownoff.add_widget(btnoff)
 
                 dropdownpin=DropDown()
                 pins = ["Leer Pin A","Leer Pin B","Leer Pin C"]
                 for index in range(3):
                     btn_pin = Button(text='%s' % pins[index], size_hint_y=None, height=44)
-                    btn_pin.bind(on_press=self.dbv2)
+                    btn_pin.bind(on_press=self.DynamicButton)
                     dropdownpin.add_widget(btn_pin)
 
 
@@ -311,38 +285,23 @@ class IDLE(BoxLayout):
                 areamodules.add_widget(led_off)
                 areamodules.add_widget(read_pin)
 
-        def fxled_on(Color):
-            nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-            x = Modulo.Led_On(Color)
-            nfh.write(x.write(0, ""))
-
-        def fxled_off(Color):
-            nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-            x = Modulo.Led_Off(Color)
-            nfh.write(x.write(0, ""))
-
-        def delay(Sec):
-            nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-            x = Modulo.Delay(Sec)
-            nfh.write(x.write(0, ""))
-
         def modcontrols(self):
-
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
-                dropdowntime=DropDown()
-                time = ["0,1s","0,2s","1s"]
+                dropdownrep=DropDown()
+                times = ["1 vez","2 veces","3 veces"]
                 for index in range(3):
-                    btn_time = Button(text='%s' % time[index], size_hint_y=None, height=44)
-                    btn_time.bind(on_press=self.dbv2)
-                    dropdowntime.add_widget(btn_time)
+                    btn_rep = Button(text='%s' % times[index], size_hint_y=None, height=44)
+                    btn_rep.bind(on_press=self.DynamicButton)
+                    dropdownrep.add_widget(btn_rep)
 
                 control_if=Button(text='If(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1))
-                control_time=Button(text='Pause(time)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50},background_color=(0,1,1,1))
-                control_while=Button(text='While(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30},background_color=(0,0,1,1))
+                control_time=Button(text='Pause(1s)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50},background_color=(0,1,1,1))
+                control_while=Button(text='Repetir', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30},background_color=(0,0,1,1))
 
-                control_time.bind(on_release=dropdowntime.open)
+                control_time.bind(on_release=self.DynamicButton)
+                control_while.bind(on_release=dropdownrep.open)
 
                 areamodules.add_widget(control_if)
                 areamodules.add_widget(control_time)
