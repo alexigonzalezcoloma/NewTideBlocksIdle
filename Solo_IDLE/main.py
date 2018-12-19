@@ -32,6 +32,7 @@ class IDLE(BoxLayout):
 
         def PreComp(aFx):
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                tab = 0
                 for e in aFx:
                         if e == "Encender blanco":
                                 x = Modulo.Led_On("13")
@@ -62,6 +63,7 @@ class IDLE(BoxLayout):
 
                         if e == "1 vez":
                                 x = Modulo.While(1)
+                                tab = 1
 
                         if e == "2 veces":
                                 x = Modulo.While(2)
@@ -69,7 +71,7 @@ class IDLE(BoxLayout):
                         if e == "3 veces":
                                 x = Modulo.While(3)
 
-                        nfh.write(x.write(0, ""))
+                        nfh.write(x.write(tab, ""))
                 nfh.close()
 
         def Repaint(self):
