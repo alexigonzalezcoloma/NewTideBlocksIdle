@@ -31,22 +31,38 @@ import serial.tools.list_ports
 class IDLE(BoxLayout):
 
         def PreComp(aFx):
+                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
                 for e in aFx:
                         if e == "Encender blanco":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("13") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
-
+                                x = Modulo.Led_On("13")
+                                
                         if e == "Encender rojo":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("4") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
+                                x = Modulo.Led_On("4")
 
                         if e == "Encender verde":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("6") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
+                                x = Modulo.Led_On("6")
 
+                        if e == "Encender amarillo":
+                                x = Modulo.Led_On("5")
+
+                        if e == "Apagar blanco":
+                                x = Modulo.Led_Off("13")
+
+                        if e == "Apagar rojo":
+                                x = Modulo.Led_Off("4")
+
+                        if e == "Apagar verde":
+                                x = Modulo.Led_Off("6")
+
+                        if e == "Apagar amarillo":
+                                x = Modulo.Led_Off("5")
+
+                        if e == "1s":
+                                x = Modulo.Delay(1000)
+
+                        nfh.write(x.write(0, ""))
+                nfh.close()
+                        
         def dbv2(self, instance):
                 global abtn, xpos, ypos, nbtn
 
@@ -258,14 +274,14 @@ class IDLE(BoxLayout):
 
         def modmakers(self):
                 dropdownon = DropDown()
-                Colors = ["Encender blanco","Encender rojo","Encender verde","Encender naranjo"]
+                Colors = ["Encender blanco","Encender rojo","Encender verde","Encender amarillo"]
                 for index in range(4):
                     btnon = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
                     btnon.bind(on_press=self.dbv2)
                     dropdownon.add_widget(btnon)
 
                 dropdownoff = DropDown()
-                Colors = ["Apagar blanco","Apagar rojo","Apagar verde","Apagar naranjo"]
+                Colors = ["Apagar blanco","Apagar rojo","Apagar verde","Apagar amarillo"]
                 for index in range(4):
                     btnoff = Button(text='%s' % Colors[index], size_hint_y=None, height=44)
                     btnoff.bind(on_press=self.dbv2)
