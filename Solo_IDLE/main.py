@@ -158,22 +158,7 @@ class IDLE(BoxLayout):
 
         # Invocación de compilador de arduino
         def Compilate(instance):
-                
-                for e in range(len(afnc)):
-                        if e == "Encender blanco":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("14") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
-                                
-                        if e == "Encender rojo":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("12") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
-
-                        if e == "Encender azul":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("13") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
+                IDLE.PreComp(afnc)
                                 
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
                 nfh.write("}")
