@@ -32,8 +32,8 @@
                 text:'UCT Blocks'
                 size_hint:(0.17,1)
                 pos_hint:{'x':0.02,'y':0.0}
-                
-            
+
+
             Button:
                 id:file
                 text:'Archivo'
@@ -54,13 +54,15 @@
             Button:
                 id:compilar
                 text:'Compilar'
+                on_press:app.IDLE.Compilate()
                 background_color:[1,1,1]
                 size_hint:(0.15,0.82)
                 pos_hint:{'x':0.66,'y':0.12}
 
             Button:
                 id:send
-                text:'Enviar'
+                text:'Enviar star wars'
+                on_press:app.IDLE.Send()
                 background_color:[1,1,1]
                 size_hint:(0.15,0.82)
                 pos_hint:{'x':0.85,'y':0.12}
@@ -118,7 +120,7 @@
                         text:'Operador'
                         background_color:1,1,1,1
                         on_press:app.IDLE.modopr()
-                
+
                 FloatLayout:
                     orientation:'vertical'
                     id:areamodules
@@ -131,9 +133,9 @@
                         Rectangle:
                             size: self.size
                             pos: self.pos
-                    
 
-                   
+
+
 
             FloatLayout:
                 orientation: "vertical"
@@ -146,8 +148,8 @@
                     Rectangle:
                         size: self.size
                         pos: self.pos
-                    
-                
+
+
                 FloatLayout:
                     id:areamodulesprogram
                     size_hint: .992,0.992

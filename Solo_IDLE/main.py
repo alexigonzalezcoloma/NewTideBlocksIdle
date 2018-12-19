@@ -15,42 +15,38 @@ from kivy.uix.checkbox import CheckBox
 from kivy.uix.dropdown import DropDown
 from kivy.config import Config
 from kivy.core.window import Window
-from kivy.app import App
 from kivy.uix.scatter import Scatter
-from kivy.uix.dropdown import DropDown
 global nbtn
 xpos = 0.1; ypos = 0.85
 import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
-global nbtn 
+global nbtn
 nbtn = 0
 global abtn; abtn = []
 global afnc; afnc = []
 #import time
 xpos = 0.1; ypos = 0.85
-import serial
-from serial import *
-#import serial.tools.list_ports
+import serial.tools.list_ports
 
 class IDLE(BoxLayout):
 
         def PreComp(aFx):
-                for e in range(len(aFx)):
+                for e in aFx:
                         if e == "Encender blanco":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("14") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
-                                
-                        if e == "Encender rojo":
-                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                                x = Modulo.Led_On("12") #Cambiar por color correcto xd
-                                nfh.write(x.write(0, ""))
-
-                        if e == "Encender azul":
                                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
                                 x = Modulo.Led_On("13") #Cambiar por color correcto xd
                                 nfh.write(x.write(0, ""))
-                        
+
+                        if e == "Encender rojo":
+                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                                x = Modulo.Led_On("4") #Cambiar por color correcto xd
+                                nfh.write(x.write(0, ""))
+
+                        if e == "Encender verde":
+                                nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
+                                x = Modulo.Led_On("6") #Cambiar por color correcto xd
+                                nfh.write(x.write(0, ""))
+
         def dbv2(self, instance):
                 global abtn, xpos, ypos, nbtn
 
@@ -61,7 +57,7 @@ class IDLE(BoxLayout):
                               size_hint=(0.25,0.1), pos_hint={'x':xpos,'y':ypos},
                               background_color=bcolor)
                 self.dbtn.bind(on_press=self.DynamicClear)
-                
+
                 if ypos > 0.15 and xpos < 1:
                         ypos -= 0.10
                         nbtn += 1
@@ -111,7 +107,7 @@ class IDLE(BoxLayout):
                         xpos += 0.3
                         ypos = 0.85
 
-                
+
 
         def DynamicClear(self, instance):
                 global abtn, ypos, nbtn
@@ -159,7 +155,7 @@ class IDLE(BoxLayout):
         # Invocación de compilador de arduino
         def Compilate(instance):
                 IDLE.PreComp(afnc)
-                                
+
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
                 nfh.write("}")
                 nfh.close()
@@ -173,7 +169,7 @@ class IDLE(BoxLayout):
         # Envia .hex a hardware
         def Send(instance):
                 param = 0
-                
+
                 try:
                         resp = Compilador("Windows").send(actualport)
                 except NameError:
@@ -222,7 +218,7 @@ class IDLE(BoxLayout):
         def ConnectionDialog(instance):
                 cbs = []
                 ports = list(serial.tools.list_ports.comports())
-                
+
                 content = BoxLayout(orientation='vertical', spacing=5)
                 lports = BoxLayout(orientation='vertical', spacing=1)
 
@@ -231,7 +227,7 @@ class IDLE(BoxLayout):
                 except NameError:
                         ap = ''
                 popup = Popup(title='Choose a port'+ap, content=content, auto_dismiss=False, size_hint=(None, None), size=(400, 400))
-                
+
                 i = 1
                 if len(ports) >= 1:
                         for port in sorted(ports):
@@ -248,10 +244,10 @@ class IDLE(BoxLayout):
 
                 btnclose = Button(text='Close')
                 btnclose.bind(on_press=popup.dismiss)
-                
+
                 content.add_widget(lports)
                 content.add_widget(btnclose)
-                
+
                 popup.open()
 
         def function_drags(self):
@@ -288,10 +284,10 @@ class IDLE(BoxLayout):
 
                 led_on=Button(text='Encender Led', id='led_on', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1),border=(20,20,20,20))
                 led_on.bind(on_release=dropdownon.open)
-                
+
                 led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50}, background_color=(0,1,1,1))
                 led_off.bind(on_release=dropdownoff.open)
-                
+
                 read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30}, background_color=(0,0,1,1))
                 read_pin.bind(on_release=dropdownpin.open)
 
@@ -315,7 +311,7 @@ class IDLE(BoxLayout):
             nfh.write(x.write(0, ""))
 
         def modcontrols(self):
-               
+
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
