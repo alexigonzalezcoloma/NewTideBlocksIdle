@@ -1,6 +1,6 @@
-# 1 "C:\\Users\\Mathias\\Documents\\GitHub\\NewTideBlocksIdle\\Solo_IDLE\\Compilador\\Builder\\temp\\temp\\temp.ino"
-# 1 "C:\\Users\\Mathias\\Documents\\GitHub\\NewTideBlocksIdle\\Solo_IDLE\\Compilador\\Builder\\temp\\temp\\temp.ino"
-# 2 "C:\\Users\\Mathias\\Documents\\GitHub\\NewTideBlocksIdle\\Solo_IDLE\\Compilador\\Builder\\temp\\temp\\temp.ino" 2
+# 1 "C:\\Users\\Alonso\\Documents\\GitHub\\NewTideBlocksIdle\\Solo_IDLE\\Compilador\\Builder\\temp\\temp\\temp.ino"
+# 1 "C:\\Users\\Alonso\\Documents\\GitHub\\NewTideBlocksIdle\\Solo_IDLE\\Compilador\\Builder\\temp\\temp\\temp.ino"
+# 2 "C:\\Users\\Alonso\\Documents\\GitHub\\NewTideBlocksIdle\\Solo_IDLE\\Compilador\\Builder\\temp\\temp\\temp.ino" 2
 void setup() {
   Serial.begin(9600);
   pinMode(1, 0x1);
@@ -20,8 +20,12 @@ void setup() {
 
 void loop() {
 
-digitalWrite(13, 0x1);
-delay(1000);
-digitalWrite(13, 0x0);
-delay(1000);
+
+    for (int i=0; i<=1; i++){
+        digitalWrite(13, 0x1);
+        digitalWrite(4, 0x1);
+        delay(3000);
+        digitalWrite(13, 0x0);
+        digitalWrite(4, 0x0);
+    }
 }

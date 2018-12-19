@@ -11,7 +11,9 @@ if __name__ == '__main__':
     nodo = asd
     nodo.add_outs(Modulo.Else())
     nodo.outs.ant = nodo; nodo = nodo.outs
-    nodo.add_ins(Modulo.Led_Off("13"))
+    nodo.add_ins(Modulo.Led_Off("13")); nodo = nodo.ins
+    nodo.add_outs(Modulo.While("True"))
+
 
 
     print (inicio.write(0,""))

@@ -16,114 +16,191 @@ from kivy.uix.dropdown import DropDown
 from kivy.config import Config
 from kivy.core.window import Window
 from kivy.uix.scatter import Scatter
-global nbtn
-xpos = 0.1; ypos = 0.85
 import os, sys; sys.path.insert(0, 'Modulo'); import Modulo;
 from Compilador import Compilador
-global nbtn
-nbtn = 0
+global nbtn, xmov
+nbtn = 0; xmov = 0
 global abtn; abtn = []
 global afnc; afnc = []
-#import time
-xpos = 0.1; ypos = 0.85
+global aquit; aquit = []
+global repetir; repetir = ["1 vez", "2 veces", "3 veces"]
+xpos = 0.05; ypos = 0.85
 import serial.tools.list_ports
 
 class IDLE(BoxLayout):
 
         def PreComp(aFx):
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
-                tab = 0
+                on = 2; x = Modulo.Inicio(); nodo = x
                 for e in aFx:
                         if e == "Encender blanco":
-                                x = Modulo.Led_On("13")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_On("13"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_On("13")); nodo = nodo.outs
 
                         if e == "Encender rojo":
-                                x = Modulo.Led_On("4")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_On("4"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_On("4")); nodo = nodo.outs
 
                         if e == "Encender verde":
-                                x = Modulo.Led_On("6")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_On("6"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_On("6")); nodo = nodo.outs
 
                         if e == "Encender amarillo":
-                                x = Modulo.Led_On("5")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_On("5"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_On("5")); nodo = nodo.outs
 
                         if e == "Apagar blanco":
-                                x = Modulo.Led_Off("13")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_Off("13"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_Off("13")); nodo = nodo.outs
 
                         if e == "Apagar rojo":
-                                x = Modulo.Led_Off("4")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_Off("4"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_Off("4")); nodo = nodo.outs
 
                         if e == "Apagar verde":
-                                x = Modulo.Led_Off("6")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_Off("6"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_Off("6")); nodo = nodo.outs
 
                         if e == "Apagar amarillo":
-                                x = Modulo.Led_Off("5")
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Led_Off("5"))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Led_Off("5")); nodo = nodo.outs
 
-                        if e == "Pause(1s)":
-                                x = Modulo.Delay(1000)
+                        if e == "Esperar 1s":
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Delay(1000))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Delay(1000)); nodo = nodo.outs
+
+                        if e == "Esperar 3s":
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Delay(3000))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Delay(3000)); nodo = nodo.outs
+
+                        if e == "Esperar 5s":
+                                if on != 0:
+                                    nodo.add_ins(Modulo.Delay(5000))
+                                    if on == 2: nodo = nodo.ins; on = 0
+                                else: nodo.add_outs(Modulo.Delay(5000)); nodo = nodo.outs
 
                         if e == "1 vez":
-                                x = Modulo.While(1)
-                                tab = 1
+                                if on != 0: nodo.add_ins(Modulo.While(1)); nodo = nodo.ins
+                                else: nodo.add_outs(Modulo.While(1)); nodo = nodo.outs
+                                on = 2
+
 
                         if e == "2 veces":
-                                x = Modulo.While(2)
+                                if on != 0: nodo.add_ins(Modulo.While(2)); nodo = nodo.ins
+                                else: nodo.add_outs(Modulo.While(2)); nodo = nodo.outs
+                                on = 2
 
                         if e == "3 veces":
-                                x = Modulo.While(3)
+                                if on != 0: nodo.add_ins(Modulo.While(3)); nodo = nodo.ins
+                                else: nodo.add_outs(Modulo.While(3)); nodo = nodo.outs
+                                on = 2
 
-                        nfh.write(x.write(tab, ""))
+                nfh.write(x.write(0, ""))
+
                 nfh.close()
 
         def Repaint(self):
                 programarea = self.ids.areamodulesprogram
 
                 for l in abtn:
-                        #print(abtn)
                         programarea.remove_widget(l)
-                #time.sleep(1)
                 for j in abtn:
-                        #print(abtn)
                         programarea.add_widget(j)
-                        
+
         def DynamicButton(self, instance):
-                global abtn, xpos, ypos, nbtn
+                global abtn, xpos, ypos, nbtn, xmov
+                if len(abtn) != 42:
+                    btext = instance.text
+                    bcolor = instance.background_color
 
-                btext = instance.text
-                bcolor = instance.background_color
+                    if len(aquit) >= 1 and aquit[len(aquit)-1].text == btext:
+                        xpos -= 0.03; xmov += 0.03
 
-                self.dbtn = Button(text=btext, id=str(nbtn),
-                              size_hint=(0.25,0.1), pos_hint={'x':xpos,'y':ypos},
-                              background_color=bcolor)
-                self.dbtn.bind(on_press=self.DynamicClear)
+                    self.dbtn = Button(text=btext, id=str(nbtn),
+                                  size_hint=(0.25,0.06), pos_hint={'x':xpos,'y':ypos},
+                                  background_color=bcolor)
+                    self.dbtn.bind(on_press=self.DynamicClear)
 
-                if ypos > 0.15 and xpos < 1:
-                        ypos -= 0.10
-                        nbtn += 1
-                elif xpos < 1:
-                        nbtn += 1
-                        xpos += 0.3
-                        ypos = 0.85
-                abtn.append(self.dbtn)
-                afnc.append(btext)
-                self.Repaint()
+                    for i in repetir:
+                        if i == btext: xpos += 0.03
+
+                    if ypos > 0.12 and xpos < 1:
+                            ypos -= 0.06
+                            nbtn += 1
+                    elif xpos < 1:
+                            nbtn += 1
+                            xpos += 0.27 + xmov
+                            ypos = 0.85
+                            xmov = 0
+                    abtn.append(self.dbtn)
+                    afnc.append(btext)
+                    self.Repaint()
+                else: return IDLE.Alert(4, 1)
+
 
         def DynamicClear(self, instance):
-                global abtn, ypos, nbtn
+                global abtn, xpos, ypos, nbtn
                 programarea = self.ids.areamodulesprogram
-                index = int(instance.id)
-                aux = abtn[index].pos[1]
-                for k in range(index, len(abtn)):
-                        abtn[k].id = str(k-1)
-                        #print(abtn[k].pos)
-                        abtn[k].pos = [abtn[k].pos[0], aux]
-                        aux = abtn[k].pos[1]
-                        #print(abtn[k].pos)
-                ypos += 0.10
-                nbtn -= 1
-                programarea.remove_widget(abtn[index])
-                abtn.pop(index)
-                afnc.pop(index)
+                last = len(abtn)-1
+                if xpos >= 0.30 and xpos < 0.50 and ypos > 0.80:
+                    xpos = 0.05; ypos = 0.01
+                if xpos >= 0.50 and xpos <0.70 and ypos > 0.80:
+                    xpos = 0.32; ypos = 0.01
+                if xpos >= 0.70 and ypos > 0.80:
+                    xpos = 0.59; ypos = 0.01
+                ypos += 0.06; nbtn -= 1
+                for i in repetir:
+                    if abtn[last].text == "Salir " + i: xpos += 0.03
+                programarea.remove_widget(abtn[last])
+                abtn.pop(last)
+                afnc.pop(last)
                 self.Repaint()
+
+        def DynamicQuitClean(self, instance):
+                global aquit
+                areamodules=self.ids.areamodules
+                areamodules.remove_widget(instance)
+                aquit.pop()
+
+        def DynamicQuit(self, instance):
+                global aquit
+
+                areamodules=self.ids.areamodules
+                btnquit=Button(text='Salir '+instance.text, id='salir '+instance.text, size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.10}, background_color=(0,1,1,1))
+                btnquit.bind(on_press=self.DynamicButton)
+                btnquit.bind(on_release=self.DynamicQuitClean)
+                aquit.append(btnquit)
+                areamodules.add_widget(btnquit)
+
+        def RemakeQuit(self):
+                global aquit
+                areamodules=self.ids.areamodules
+
+                for items in aquit:
+                        btnquit=Button(text=items.text, id=items.text, size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.10}, background_color=(0,1,1,1))
+                        btnquit.bind(on_press=self.DynamicButton)
+                        btnquit.bind(on_release=self.DynamicQuitClean)
+                        areamodules.add_widget(btnquit)
 
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
@@ -139,6 +216,9 @@ class IDLE(BoxLayout):
                 if ins == 3:
                         if res:
                                 txt = Label(text='Se ha seleccionado correctamente el puerto')
+                if ins == 4:
+                        if res:
+                                txt = Label(text='Capacidad max. alcanzada.')
 
                 content.add_widget(txt)
                 btnlayout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
@@ -151,6 +231,7 @@ class IDLE(BoxLayout):
 
         # Invocación de compilador de arduino
         def Compilate(instance):
+                IDLE.FileBase() # Copia base a temp.ino
                 IDLE.PreComp(afnc)
 
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
@@ -188,7 +269,7 @@ class IDLE(BoxLayout):
 
         def FileDialog(self):
                 content = BoxLayout(orientation='vertical', spacing=5)
-                popup = Popup(title='Choose a file', content=content, size_hint=(None, None),size=(400, 400))
+                popup = Popup(title='Seleccione un archivo', content=content, size_hint=(None, None),size=(400, 400))
 
                 path = os.getcwd()
                 textinput = FileChooserListView(path=path, size_hint=(1, 1), dirselect=True)
@@ -199,7 +280,7 @@ class IDLE(BoxLayout):
                 btn = Button(text='Ok')
 
                 btnlayout.add_widget(btn)
-                btn = Button(text='Cancel')
+                btn = Button(text='Cancelar')
                 btn.bind(on_release=popup.dismiss)
                 btnlayout.add_widget(btn)
                 content.add_widget(btnlayout)
@@ -220,10 +301,10 @@ class IDLE(BoxLayout):
                 lports = BoxLayout(orientation='vertical', spacing=1)
 
                 try:
-                        ap = ' -------------------------------- Currently using: '+actualport
+                        ap = ' ----------------- Actualmente en uso: '+actualport
                 except NameError:
                         ap = ''
-                popup = Popup(title='Choose a port'+ap, content=content, auto_dismiss=False, size_hint=(None, None), size=(400, 400))
+                popup = Popup(title='Elija un puerto'+ap, content=content, auto_dismiss=False, size_hint=(None, None), size=(400, 400))
 
                 i = 1
                 if len(ports) >= 1:
@@ -274,10 +355,10 @@ class IDLE(BoxLayout):
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
 
-                led_on=Button(text='Encender Led', id='led_on', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1),border=(20,20,20,20))
+                led_on=Button(text='Encender Led', id='led_on', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,0,1,1),border=(20,20,20,20))
                 led_on.bind(on_release=dropdownon.open)
 
-                led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50}, background_color=(0,1,1,1))
+                led_off=Button(text='Apagar Led', id='led_off', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50}, background_color=(0,0,1,1))
                 led_off.bind(on_release=dropdownoff.open)
 
                 read_pin=Button(text='Leer Pin', id='read_pin', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30}, background_color=(0,0,1,1))
@@ -290,20 +371,29 @@ class IDLE(BoxLayout):
         def modcontrols(self):
                 areamodules=self.ids.areamodules
                 areamodules.clear_widgets()
+                self.RemakeQuit()
+
+                dropdowntim=DropDown()
+                time = ["Esperar 1s","Esperar 3s","Esperar 5s"]
+                for index in range(3):
+                    btn_tim = Button(text='%s' % time[index], size_hint_y=None, height=44)
+                    btn_tim.bind(on_press=self.DynamicButton)
+                    dropdowntim.add_widget(btn_tim)
 
                 dropdownrep=DropDown()
                 times = ["1 vez","2 veces","3 veces"]
                 for index in range(3):
                     btn_rep = Button(text='%s' % times[index], size_hint_y=None, height=44)
                     btn_rep.bind(on_press=self.DynamicButton)
+                    btn_rep.bind(on_press=self.DynamicQuit)
                     dropdownrep.add_widget(btn_rep)
 
-                control_if=Button(text='If(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1))
-                control_time=Button(text='Pause(1s)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50},background_color=(0,1,1,1))
-                control_while=Button(text='Repetir', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30},background_color=(0,0,1,1))
+                control_if=Button(text='Si(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1))
+                control_time=Button(text='Espera', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.50},background_color=(0,1,0,1))
+                control_while=Button(text='Repetir', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.30},background_color=(0,1,0,1))
 
-                control_time.bind(on_release=self.DynamicButton)
                 control_while.bind(on_release=dropdownrep.open)
+                control_time.bind(on_release=dropdowntim.open)
 
                 areamodules.add_widget(control_if)
                 areamodules.add_widget(control_time)

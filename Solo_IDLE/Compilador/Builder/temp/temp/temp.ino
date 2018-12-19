@@ -18,3 +18,12 @@ void setup() {
 
 void loop() {
 
+
+    for (int i=0; i<=1; i++){
+        digitalWrite(13, HIGH);
+        digitalWrite(4, HIGH);
+        delay(3000);
+        digitalWrite(13, LOW);
+        digitalWrite(4, LOW);
+    }
+}

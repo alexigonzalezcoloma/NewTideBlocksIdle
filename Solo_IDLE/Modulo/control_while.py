@@ -10,7 +10,7 @@ class While(Bloque):
 
     def write(self, tabs, code):
         code += "    " * tabs
-        code += "for i=0; i<=(%s); i++{\n" % (self.cond)
+        code += "for (int i=0; i<=%s; i++){\n" % (self.cond)
         if self.ins:
             code = self.ins.write(tabs+1, code)
         code += "    " * tabs
