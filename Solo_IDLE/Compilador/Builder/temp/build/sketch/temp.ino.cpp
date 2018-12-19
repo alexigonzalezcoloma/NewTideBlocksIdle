@@ -27,6 +27,7 @@ void setup() {
 void loop() {
 
 digitalWrite(13, HIGH);
-digitalWrite(4, HIGH);
-digitalWrite(6, HIGH);
+delay(1000);
+digitalWrite(13, LOW);
+delay(1000);
 }

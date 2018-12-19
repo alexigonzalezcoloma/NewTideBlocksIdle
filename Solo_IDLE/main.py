@@ -35,7 +35,7 @@ class IDLE(BoxLayout):
                 for e in aFx:
                         if e == "Encender blanco":
                                 x = Modulo.Led_On("13")
-                                
+
                         if e == "Encender rojo":
                                 x = Modulo.Led_On("4")
 
@@ -62,7 +62,7 @@ class IDLE(BoxLayout):
 
                         nfh.write(x.write(0, ""))
                 nfh.close()
-                        
+
         def dbv2(self, instance):
                 global abtn, xpos, ypos, nbtn
 
@@ -335,7 +335,7 @@ class IDLE(BoxLayout):
                 time = ["0,1s","0,2s","1s"]
                 for index in range(3):
                     btn_time = Button(text='%s' % time[index], size_hint_y=None, height=44)
-                    btn_time.bind(on_press=self.DynamicButton)
+                    btn_time.bind(on_press=self.dbv2)
                     dropdowntime.add_widget(btn_time)
 
                 control_if=Button(text='If(Condicion)', size_hint=(0.6,0.1), pos_hint={'x':0.2,'y':0.70}, background_color=(0,1,0,1))
