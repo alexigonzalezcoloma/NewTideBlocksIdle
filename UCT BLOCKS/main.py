@@ -1,3 +1,4 @@
+# imports
 import kivy
 kivy.require('1.10.1')
 from kivy.app import App
@@ -27,9 +28,14 @@ global repetir; repetir = ["1 vez", "2 veces", "3 veces"]
 xpos = 0.05; ypos = 0.85
 import serial.tools.list_ports
 
+# Clase que define IDLE como contenedor
 class IDLE(BoxLayout):
-
+        # Precomipilado permite la lectura de los bloques actuales
+        # antes de compilar y enviar, se realiza de esta forma para
+        # que al agregar bloques no agregue el código directamente al
+        # archivo.
         def PreComp(aFx):
+                # Recorre los bloques en sistema de nodos y los agrega al archivo temporal
                 nfh = open("Compilador/Builder/temp/temp/temp.ino", "a")
                 on = 2; x = Modulo.Inicio(); nodo = x
                 for e in aFx:
@@ -118,7 +124,7 @@ class IDLE(BoxLayout):
                 nfh.write(x.write(0, ""))
 
                 nfh.close()
-
+        # Limpia el area de bloques
         def Repaint(self):
                 programarea = self.ids.areamodulesprogram
 
@@ -126,7 +132,7 @@ class IDLE(BoxLayout):
                         programarea.remove_widget(l)
                 for j in abtn:
                         programarea.add_widget(j)
-
+        # Función que agrega bloques dinamicos según posición
         def DynamicButton(self, instance):
                 global abtn, xpos, ypos, nbtn, xmov
                 if len(abtn) != 42:
@@ -157,7 +163,7 @@ class IDLE(BoxLayout):
                     self.Repaint()
                 else: return IDLE.Alert(4, 1)
 
-
+        # Remueve y corrige posicion de bloques en area de programacion
         def DynamicClear(self, instance):
                 global abtn, xpos, ypos, nbtn
                 programarea = self.ids.areamodulesprogram
@@ -175,7 +181,7 @@ class IDLE(BoxLayout):
                 abtn.pop(last)
                 afnc.pop(last)
                 self.Repaint()
-
+                
         def DynamicQuitClean(self, instance):
                 global aquit
                 areamodules=self.ids.areamodules
@@ -201,7 +207,8 @@ class IDLE(BoxLayout):
                         btnquit.bind(on_press=self.DynamicButton)
                         btnquit.bind(on_release=self.DynamicQuitClean)
                         areamodules.add_widget(btnquit)
-
+        # Muestra alerta segun parametro, retroalimentacion para compilacion
+        # cargado a hardware, selección de puerto
         def Alert(ins, res):
                 content = BoxLayout(orientation='vertical', spacing=5)
                 popup = Popup(title='Alerta', content=content, auto_dismiss=False, size_hint=(None, None), size=(480, 160))
@@ -266,7 +273,7 @@ class IDLE(BoxLayout):
                         nfh.write(line)
                 f.close()
                 nfh.close()
-
+        
         def FileDialog(self):
                 content = BoxLayout(orientation='vertical', spacing=5)
                 popup = Popup(title='Seleccione un archivo', content=content, size_hint=(None, None),size=(400, 400))
@@ -328,7 +335,7 @@ class IDLE(BoxLayout):
 
                 popup.open()
 
-
+        # Definicion de botones en area de bloques
         def modmakers(self):
                 dropdownon = DropDown()
                 Colors = ["Encender blanco","Encender rojo","Encender verde","Encender amarillo"]
